@@ -4,13 +4,14 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import records.Hello;
 
 @Path("/hello")
 public class GreetingResource {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from Quarkus REST";
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hello hello() {
+        return new Hello("OK", "Hello from Quarkus REST");
     }
 }

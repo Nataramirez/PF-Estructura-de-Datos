@@ -1,0 +1,21 @@
+.container-body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-menu {
+    width: 100%;
+    height: 72px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-primary);
+    color: var(--color-secondary-light);
+    align-items: center;
+}
+
+.button-menu {
+    width: 96%;
+    height: 100%;
+    font-size: medium;
+}

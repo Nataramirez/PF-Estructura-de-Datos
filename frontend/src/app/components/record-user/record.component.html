@@ -1,0 +1,33 @@
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="container-form">
+        
+        <div class="input-form">
+            <label class="label-login" for="name">Nombre:</label>
+            <input type="test" id="name" placeholder="Nombre" name="name" required
+                [(ngModel)]="name" #nameInput="ngModel">
+            <div style="color:red" *ngIf="nameInput.invalid && nameInput.touched">
+                <small *ngIf="nameInput.errors?.['required']">El nombre es obligatorio.</small>
+            </div>
+        </div>
+
+        <div class="input-form">
+            <label class="label-login" for="username">Usuario:</label>
+            <input type="number" id="username" placeholder="Número de identificación" name="username" required
+                [(ngModel)]="username" #usernameInput="ngModel">
+            <div style="color:red" *ngIf="usernameInput.invalid && usernameInput.touched">
+                <small *ngIf="usernameInput.errors?.['required']">El usuario es obligatorio.</small>
+            </div>
+        </div>
+
+        <div class="input-form">
+            <label class="label-login" for="password">Contraseña:</label>
+            <input type="password" id="password" placeholder="Contraseña" name="password" required
+                [(ngModel)]="password" #passwordInput="ngModel">
+            <div style="color:red" *ngIf="passwordInput.invalid && passwordInput.touched">
+                <small *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</small>
+            </div>
+        </div>
+        <button [disabled]="loginForm.invalid" class="button-primary button-login" type="submit">Registrarse</button>
+    </div>
+
+</form>

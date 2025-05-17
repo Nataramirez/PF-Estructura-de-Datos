@@ -1,8 +1,15 @@
 <div class="container-botton">
-    <select class="input" id="mi-selector" name="opciones" >
-        <option value="opcion">Categorias</option>
-        <option value="opcion1">Opción 1</option>
-        <option value="opcion2">Opción 2</option>
+    <select #categoriesInput [(ngModel)]="searhCategory" class="input" id="mi-selector" name="opciones">
+        <option value="">Categoría</option>
+        <option value="Arte">{{ categories.ART }}</option>
+        <option value="Cocina">{{ categories.COOKING }}</option>
+        <option value="Fantasia">{{ categories.FANTASY }}</option>
+        <option value="Historia">{{ categories.HISTORY }}</option>
+        <option value="Misterio">{{ categories.MYSTERY }}</option>
+        <option value="Romance">{{ categories.ROMANCE }}</option>
+        <option value="Ciencia Ficción">{{ categories.SCIENCE_FICTION }}</option>
     </select>
-    <input type="text" placeholder="Buscar libro" />
+    <input #searchInput type="text" placeholder="Nombre o autor" [(ngModel)]="searchName" name="searchName" />
+    <button class="button-primary" type="button" (click)="searchBook(categoriesInput.value || searchInput.value)">Buscar</button>
+    <button class="button-primary" type="button" (click)="allbooks()">Todos</button>
 </div>

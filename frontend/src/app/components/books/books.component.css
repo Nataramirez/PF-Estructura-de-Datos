@@ -1,0 +1,69 @@
+.container-books {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #F2EFE7;
+    padding: 32px;
+    gap: 16px;
+}
+
+.card-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    width: 320px;
+    color: #F2EFE7;
+}
+
+.button-book {
+    margin: 8px;
+}
+
+.container-details {
+    display: flex;
+}
+
+.container-keys {
+    width: 96px;
+}
+
+.state-available {
+    background-color: chartreuse;
+    color: var(--color-primary);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    margin: 8px;
+    padding: 4px;
+    width: 96px;
+}
+
+.state-loaned {
+    background-color: orangered;
+    color: var(--color-primary);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    margin: 8px;
+    padding: 4px;
+    width: 96px;
+}
+
+.stars {
+    font-size: 24px;
+    color: gray;
+}
+
+.stars .filled {
+    color: gold;
+}
+
+.container-stars {
+    margin: 8px 0px;
+}
