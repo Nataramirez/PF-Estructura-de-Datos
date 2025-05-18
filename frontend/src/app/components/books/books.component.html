@@ -1,0 +1,52 @@
+<div class="container-books">
+    <div class="card-book" *ngFor="let book of books">
+        <h4>{{ book.title }}</h4>
+        <div class="container-details">
+            <div class="container-keys">
+                <p>Calificación:</p>
+                <p>Categoría:</p>
+                <p>Autor:</p>
+                <p>Año:</p>
+                <p>Estado:</p>
+            </div>
+            <div>
+                <div class="stars container-stars">
+                    <ng-container *ngFor="let i of [1,2,3,4,5]">
+                        <span [class.filled]="i <= book.qualification">★</span>
+                    </ng-container>
+                </div>
+                <p>{{ book.category }}</p>
+                <p>{{ book.author }}</p>
+                <p>{{ book.year }}</p>
+                <p [className]="getClassByState(book.state)">{{ book.state }}</p>
+            </div>
+
+        </div>
+        <button class="button-third button-book" (click)="openModal(book)">Solicitar Préstamo</button>
+    </div>
+</div>
+
+<app-modal #modal title="Iniciar Sesión">
+    <p>Inicia sesión para solicitar un préstamo</p>
+    <app-login></app-login>
+</app-modal>
+
+<app-modal #modalLoan title="Préstamo de Libros">
+    <div class="container-books">
+        <p>{{ descriptionLoan }}</p>
+        <div class="card-book">
+            <div class="container-details">
+                <div class="container-keys">
+                    <p>Libro:</p>
+                    <p>Estado:</p>
+                </div>
+                <div>
+                    <p>{{ nameBookLoan }}</p>
+                    <p [className]="getClassByState(stateBookLoan)">{{ stateBookLoan }}</p>
+                </div>
+
+            </div>
+        </div>
+        <button class="button-third">Aceptar</button>
+    </div>
+</app-modal>

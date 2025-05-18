@@ -1,0 +1,22 @@
+<div class="main-navigation-container">
+    <h1>Biblioteca Digital</h1>
+    <app-search-books></app-search-books>
+    <div class="container-botton">
+        <button class="button-primary" type="button" (click)="closeSession()">Salir</button>
+    </div>
+</div>
+<div class="container-body">
+    <div class="container-menu">
+       <button #loans value="loans" class="button-primary button-menu" type="button" (click)="goToFlows(loans.value)">Préstamos</button>
+       <button #recommendations value="recommendations" class="button-primary button-menu" type="button" (click)="goToFlows(recommendations.value)">Recomendaciones</button>
+       <button #suggestions value="suggestions" class="button-primary button-menu" type="button" (click)="goToFlows(suggestions.value)">Sugerencias</button>
+       <button #messages value="messages" class="button-primary button-menu" type="button" (click)="goToFlows(messages.value)">Mensajes</button>
+       <button #profile value="profile" class="button-primary button-menu" type="button" (click)="goToFlows(profile.value)">Perfil</button>
+    </div>
+</div>
+
+<app-modal #modalUpdateProfile title="Actualiza tu perfil">
+    <app-record></app-record>
+</app-modal>
+
+<router-outlet></router-outlet>

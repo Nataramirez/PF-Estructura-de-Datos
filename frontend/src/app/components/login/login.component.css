@@ -1,0 +1,23 @@
+.input-form {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    align-items: center;
+    margin: 0px 24px;
+    justify-content: space-evenly;
+}
+
+.button-login {
+    display: flex;
+    justify-self: center;
+    margin: 8px;
+    justify-content: center;
+}
+
+.label-login {
+    width: 96px;
+}
+
+.container-form {
+    margin: 16px;
+}

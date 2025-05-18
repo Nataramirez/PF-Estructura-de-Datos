@@ -1,9 +1,12 @@
-
-
-
 <div class="container-botton">
-    <input type="text" placeholder="Usuario" />
-    <input type="password" placeholder="Contraseña" />
-    <button class="button-primary" type="button">Ingresar</button>
-    <button class="button-primary" type="button">Registrarse</button>
+  <button class="button-primary" type="button" (click)="openModalLogin()">Ingresar</button>
+  <button class="button-primary" type="button" (click)="openModalRecord()">Registrarse</button>
 </div>
+
+<app-modal #modalLogin title="Iniciar Sesión">
+  <app-login></app-login>
+</app-modal>
+
+<app-modal #modalRecord title="Iniciar Registro">
+  <app-record></app-record>
+</app-modal>
