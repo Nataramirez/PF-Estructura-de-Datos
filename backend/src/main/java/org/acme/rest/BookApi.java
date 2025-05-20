@@ -29,9 +29,9 @@ public class BookApi {
     }
 
     @GET
-    @Path("/search")
-    public Response searchBook(){
-        List<Book> books = bookService.searchBooksCategory("ROMANCE");
+    @Path("/search/category")
+    public Response searchBooksCategory(@QueryParam("category") String category){
+        List<Book> books = bookService.searchBooksCategory(category);
         return Response.ok(books).build();
     }
 
