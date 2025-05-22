@@ -16,7 +16,12 @@ public class UserApi {
     @POST
     @Path("/create")
     public Response createUser(User user) {
-        boolean created = userService.createUser(user);
-        return Response.status(created ? Response.Status.CREATED : Response.Status.INTERNAL_SERVER_ERROR).build();
+        try {
+            User userCreated = userService.createUser(user);
+            return Response.status(Response.Status.CREATED).entity(userCreated).build();
+        }catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
+                    "procesar la solicitud. Por favor intente más tade.").build();
+        }
     }
 }

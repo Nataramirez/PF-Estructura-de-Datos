@@ -16,15 +16,10 @@ import java.util.UUID;
 @ApplicationScoped
 public class UserService {
 
-    public boolean createUser(User user) {
-        try {
-            setInitialDataUser(user);
-            Data.users.insert(user);
-            System.out.println(Data.users.inOrder());
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public User createUser(User user) {
+        setInitialDataUser(user);
+        Data.users.insert(user);
+        return user;
     }
 
     public void setInitialDataUser(User user) {
