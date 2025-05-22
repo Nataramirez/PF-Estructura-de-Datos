@@ -2,7 +2,7 @@ package org.acme.utils;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.model.Book;
-import org.acme.model.User;
+import org.acme.model.user.User;
 import org.acme.utils.tree.BinaryTree;
 
 @ApplicationScoped

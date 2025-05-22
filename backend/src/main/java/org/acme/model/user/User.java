@@ -1,9 +1,10 @@
-package org.acme.model;
+package org.acme.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.acme.model.Loan;
 import org.acme.utils.list.SimpleLinkedList;
 
 @Data
