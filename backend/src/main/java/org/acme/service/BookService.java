@@ -49,6 +49,18 @@ public class BookService {
         return books;
     }
 
+    public SimpleLinkedList<Book> searchBooksNameOrAuthor(String param) {
+        Iterator<Book> iterator = Data.books.iterator();
+        SimpleLinkedList<Book> books = new SimpleLinkedList<>();
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
+            if (book.getAuthor().contains(param) || book.getName().contains(param)) {
+                books.insertAtStart(book);
+            }
+        }
+        return books;
+    }
+
     public BinaryTree<Book> getBooks() {
         return Data.books;
     }

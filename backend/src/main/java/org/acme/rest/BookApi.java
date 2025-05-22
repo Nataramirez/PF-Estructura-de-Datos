@@ -54,4 +54,16 @@ public class BookApi {
                     "procesar la solicitud. Por favor intente más tade.").build();
         }
     }
+
+    @GET
+    @Path("/search/name-or-author")
+    public Response searchBooksNameOrAuthor(@QueryParam("param") String param) {
+        try {
+            List<Book> books = mapToList.simpleLinkedListToList(bookService.searchBooksNameOrAuthor(param));
+            return Response.status(Response.Status.OK).entity(books).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
+                    "procesar la solicitud. Por favor intente más tade.").build();
+        }
+    }
 }
