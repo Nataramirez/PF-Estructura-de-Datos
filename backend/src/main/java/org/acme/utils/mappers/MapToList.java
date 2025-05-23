@@ -2,7 +2,6 @@ package org.acme.utils.mappers;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.model.Book;
-import org.acme.utils.Data;
 import org.acme.utils.list.SimpleLinkedList;
 import org.acme.utils.tree.BinaryTree;
 

@@ -3,6 +3,8 @@ package org.acme.rest;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.model.user.User;
 import org.acme.model.user.UserAuth;
@@ -16,6 +18,7 @@ public class UserApi {
 
     @POST
     @Path("/create")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createUser(User user) {
         try {
             User userCreated = userService.createUser(user);
@@ -28,6 +31,7 @@ public class UserApi {
 
     @POST
     @Path("/auth")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response authUser(UserAuth userAuth) {
         try {
             User user = userService.userAuth(userAuth.getUser(), userAuth.getPassword());

@@ -19,5 +19,6 @@ public class Loan {
     private User user;
     private LocalDate loanDate;
     private LocalDate returnDate;
+    private String state;
 
 }

@@ -3,55 +3,61 @@ package org.acme.utils.list;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SimpleLinkedList<T> implements Iterable<T> {
+public class Queue<T> implements Iterable<T> {
 
     private int size;
     private Node<T> firstNode;
+    private Node<T> lastNode;
 
-    public SimpleLinkedList() {
+    public Queue() {
         size = 0;
         firstNode = null;
+        lastNode = null;
     }
 
-    public void insertAtStart(T value) {
+    // Encola: agrega al final
+    public void enqueue(T value) {
         Node<T> node = new Node<>(value);
-
-        if (firstNode == null) {
+        if (isEmpty()) {
             firstNode = node;
+            lastNode = node;
         } else {
-            node.setNext(firstNode);
-            firstNode = node;
+            lastNode.setNext(node);
+            lastNode = node;
         }
         size++;
     }
 
-    public boolean remove(T value) {
+    // Desencola: elimina del inicio
+    public T dequeue() {
         if (isEmpty()) {
-            return false;
+            throw new NoSuchElementException("Queue is empty");
+        }
+        T value = firstNode.getValue();
+        firstNode = firstNode.getNext();
+        size--;
+
+        if (isEmpty()) {
+            lastNode = null;
         }
 
-        if (firstNode.getValue().equals(value)) {
-            firstNode = firstNode.getNext();
-            size--;
-            return true;
-        }
-
-        Node<T> previous = firstNode;
-        Node<T> current = firstNode.getNext();
-
-        while (current != null) {
-            if (current.getValue().equals(value)) {
-                previous.setNext(current.getNext());
-                size--;
-                return true;
-            }
-            previous = current;
-            current = current.getNext();
-        }
-
-        return false;
+        return value;
     }
 
+    public T peek() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue is empty");
+        }
+        return firstNode.getValue();
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
+    }
 
     public T search(T value) {
         Node<T> current = firstNode;
@@ -64,21 +70,17 @@ public class SimpleLinkedList<T> implements Iterable<T> {
         return null;
     }
 
-    public boolean isEmpty(){
-        return size == 0;
-    }
-
 
     @Override
     public Iterator<T> iterator() {
-        return new SimpleLinkedListIterator<>(firstNode);
+        return new QueueIterator<>(firstNode);
     }
 
-    private static class SimpleLinkedListIterator<T> implements Iterator<T> {
+    private static class QueueIterator<T> implements Iterator<T> {
 
         private Node<T> current;
 
-        public SimpleLinkedListIterator(Node<T> start) {
+        public QueueIterator(Node<T> start) {
             this.current = start;
         }
 

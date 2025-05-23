@@ -2,9 +2,9 @@ package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.model.Loan;
-import org.acme.model.user.User;
 import org.acme.model.enums.user.UserRole;
 import org.acme.model.enums.user.UserState;
+import org.acme.model.user.User;
 import org.acme.utils.Data;
 import org.acme.utils.list.SimpleLinkedList;
 
