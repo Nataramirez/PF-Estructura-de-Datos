@@ -1,91 +1,35 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { SearchBooksComponent } from "../search-books/search-books.component";
 import { CategoryBook } from '../../../enums/category-book.enum';
-import { FormsModule } from '@angular/forms';
 import { StateBook } from '../../../enums/state-book.enum';
 import { GlobalStateService } from '../../../services/global-state.service';
-import { Book } from '../../../models/book.model';
-import { TypeUser } from '../../../enums/type-user.enum';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { routesCollection } from '../../../app.routes';
+import { Book } from '../../../models/book.model';
+import { CommonModule } from '@angular/common';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
-  selector: 'app-search-books',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './search-books.component.html',
-  styleUrl: './search-books.component.css'
+  selector: 'app-main-admin',
+  imports: [RouterModule, CommonModule, SearchBooksComponent, ModalComponent],
+  templateUrl: './main-admin.component.html',
+  styleUrl: './main-admin.component.css'
 })
-export class SearchBooksComponent {
-  public categories = CategoryBook;
-  public searchName: string = '';
-  public searchCategory = '';
+export class MainAdminComponent {
+  public books: Book[] = [];
 
   constructor(
     private globalState: GlobalStateService,
     private router: Router
-  ) { 
+  ) {
+    this.globalState.books$.subscribe((books) => {
+      this.books = books;
+    });
   }
 
-  searchBook(searchInput: string): void {
-    console.log('Buscando libros en la categoria:', searchInput);
-    if (searchInput !== '') {
-      if (Object.values(CategoryBook).includes(searchInput as CategoryBook)) {
-        console.log('Buscando libros por categoria:', searchInput);
-        try {
-          const responseSearchBooks = [ // llamar al servicio del backend para buscar libros por categoria
-            {
-              "title": "The Name of the Wind",
-              "author": "Patrick Rothfuss",
-              "year": "2007",
-              "qualification": 4,
-              "category": CategoryBook.FANTASY,
-              "state": StateBook.AVAILABLE
-            },
-            {
-              "title": "The Diamond Age",
-              "author": "Neal Stephenson",
-              "year": "1995",
-              "qualification": 1,
-              "category": CategoryBook.FANTASY,
-              "state": StateBook.AVAILABLE
-            }
-          ]
-          this.globalState.setBooks(responseSearchBooks);
-        } catch (error) {
-          console.error('Error al buscar libros por categoria:', error);
-          alert('Error al buscar libros por categoria');
-        }
-      } else {
-        console.log('Buscando libros por nombre o autor:', searchInput);
-        // llamar al servicio para buscar libros por nombre o autor
-        try {
-          const responseSearchBooks = [ // llamar al servicio para buscar libros por nombre o autor
-            {
-              "title": "Nonviolent Communication",
-              "author": "Marshall B. Rosenberg",
-              "year": "1999",
-              "qualification": 2,
-              "category": CategoryBook.ROMANCE,
-              "state": StateBook.AVAILABLE
-            }
-          ]
-          this.globalState.setBooks(responseSearchBooks);
-        } catch (error) {
-          console.error('Error al buscar libros por nombre o autor:', error);
-          alert('Error al buscar libros por nombre o autor');
-        }
-
-      }
-      this.searchName = '';
-      this.searchCategory = '';
-    } else {
-      alert('Por favor ingrese un nombre o categoria para buscar');
-    }
-
-  }
-
-  allbooks() {
-    const getBooks = [ // llamar al servicio del backend para obtener todos los libros
+  public closeSession() {
+    this.globalState.setUserLoggedIn(null);
+    const getBooks = [ // // llamar al servicio del backend para obtener todos los libros
       {
         "title": "The Name of the Wind",
         "author": "Patrick Rothfuss",
@@ -232,19 +176,18 @@ export class SearchBooksComponent {
       }
     ];
     this.globalState.setBooks(getBooks);
-    this.getUserState();
+    this.router.navigate([routesCollection.HOME]);
   }
 
-  getUserState(){
-    this.globalState.isUserLoggedIn$.subscribe(user => {
-      if (user) {
-        if (user.type === TypeUser.USER) {
-          this.router.navigate([routesCollection.MAIN_USER], { replaceUrl: true });
-        }else if (user.type === TypeUser.ADMIN) {
-          this.router.navigate([routesCollection.MAIN_ADMIN], { replaceUrl: true });
-        }
-        console.log('El usuario está logueado');
-      }
-    });
+  public goToFlows(flow: string) {
+    switch (flow) {
+      case 'loans':
+        this.router.navigate([routesCollection.MAIN_USER, routesCollection.USER_LOANS], { replaceUrl: true });
+        break;
+      default:
+        this.router.navigate([routesCollection.MAIN_USER, routesCollection.USER_BOOKS], { replaceUrl: true });
+        break;
+    }
   }
+
 }

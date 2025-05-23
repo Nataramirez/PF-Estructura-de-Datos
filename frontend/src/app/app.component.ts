@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    const getBooks = [ // este consumo debe darse al servicio del backend
+    const getBooks = [ // // llamar al servicio del backend para obtener todos los libros
       {
         "title": "The Name of the Wind",
         "author": "Patrick Rothfuss",

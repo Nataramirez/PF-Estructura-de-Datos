@@ -12,8 +12,12 @@ export const routesCollection = {
 }
 
 export const routes: Routes = [
-    { path: routesCollection.HOME, loadComponent: () => import('./components/navigation/main-navigation/main-navigation.component').then(m => m.MainNavigationComponent) },
-    { path: routesCollection.MAIN_USER, 
+    {
+        path: routesCollection.HOME,
+        loadComponent: () => import('./components/navigation/main-navigation/main-navigation.component').then(m => m.MainNavigationComponent)
+    },
+    {
+        path: routesCollection.MAIN_USER,
         loadComponent: () => import('./components/navigation/main-user/main-user.component').then(m => m.MainUserComponent),
         children: [
             {
@@ -38,4 +42,14 @@ export const routes: Routes = [
             }
         ]
     },
+    {
+        path: routesCollection.MAIN_ADMIN,
+        loadComponent: () => import('./components/navigation/main-admin/main-admin.component').then(m => m.MainAdminComponent),
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./components/books-admin-panel/books-admin-panel.component').then(m => m.BooksAdminPanelComponent)
+            }
+        ]
+    }
 ];

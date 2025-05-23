@@ -3,11 +3,7 @@
     flex-direction: column;
     width: 100%;
     background-color: var(--color-secondary-light);
-    height: 1200px;
-}
-
-.greeting {
-    padding: 0px 32px;
+    height: 100%;
 }
 
 .container-loans {
@@ -17,7 +13,8 @@
     align-items: center;
     padding: 0px 24px;
     height: 32px;
-    margin: 8px 0px;
+    margin: 24px 0px 8px 0px;
+
 }
 
 .loan-columns {
@@ -32,21 +29,12 @@
 .loan {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     border-radius: 4px;
 }
-
-.loan-rate {
-    height: 24px;
-}
-
-.action {
-    height: 24px;
-    width: 90%;
-}
-
+   
 .stars {
     font-size: 24px;
     color: gray;
@@ -60,24 +48,39 @@
     margin: 8px 0px;
 }
 
-.modal-rate {
-    display: flex;
-    flex-direction: column;
-    align-items: anchor-center;
+.action {
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.rate {
-    margin: 8px;
-    width: 64%;
+.action-button {
+    height: 32px;
 }
 
-.options {
+.input-form {
     display: flex;
     flex-direction: row;
+    padding: 8px;
+    align-items: center;
+    margin: 0px 24px;
+    justify-content: space-evenly;
+}
+
+.input-form input {
+    width: 196px;
+}
+
+.button-login {
+    display: flex;
+    justify-self: center;
+    margin: 8px;
     justify-content: center;
 }
 
-.button-rate {
+.label-login {
+    width: 96px;
+}
+
+.container-form {
     margin: 16px;
-    width: 144px;
 }
