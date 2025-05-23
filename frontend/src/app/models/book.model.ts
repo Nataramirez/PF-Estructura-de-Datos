@@ -8,4 +8,6 @@ export interface Book {
     qualification: number;
     category: CategoryBook;
     state: StateBook;
+    // score: int, CALIFICACIONE GENERAL DEL LIBRO (PROMEDIO POR CANTIDAD DE PRESTAMOS)
+    // 
 }

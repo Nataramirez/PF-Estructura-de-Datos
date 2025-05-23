@@ -1,0 +1,17 @@
+<div class="main-navigation-container">
+    <h1>Biblioteca Digital</h1>
+    <app-search-books></app-search-books>
+    <div class="container-botton">
+        <button class="button-primary" type="button" (click)="closeSession()">Salir</button>
+    </div>
+</div>
+
+<div class="container-body">
+    <div class="container-menu">
+       <button #loans value="loans" class="button-primary button-menu" type="button" (click)="goToFlows(loans.value)">Usuarios</button>
+    </div>
+</div>
+
+<app-modal #modalRecordBook></app-modal>
+
+<router-outlet></router-outlet>
