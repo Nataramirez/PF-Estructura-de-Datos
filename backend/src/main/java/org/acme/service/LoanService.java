@@ -1,0 +1,94 @@
+package org.acme.service;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import org.acme.model.Book;
+import org.acme.model.Loan;
+import org.acme.model.enums.book.BookState;
+import org.acme.model.enums.loan.LoanState;
+import org.acme.model.user.User;
+import org.acme.utils.Data;
+import org.acme.utils.list.Queue;
+import org.acme.utils.list.QueueUtils;
+import org.acme.utils.list.SimpleLinkedList;
+
+import java.time.LocalDate;
+import java.util.UUID;
+
+@ApplicationScoped
+public class LoanService {
+
+    public SimpleLinkedList<Loan> applyForLoan(String idBook, String userForApply) {
+
+        User user = Data.users.search(User.builder().user(userForApply).build());
+        Book book = Data.books.search(Book.builder().id(idBook).build());
+
+        Loan loan = Loan.builder()
+                .book(book)
+                .loanDate(LocalDate.now())
+                .id(UUID.randomUUID().toString())
+                .user(user)
+                .state(LoanState.WAITING.getValue())
+                .build();
+
+        if (book.getState().equals(BookState.AVAILABLE.getValue())) {
+            loan.setState(LoanState.LOANED.getValue());
+            book.setState(BookState.LOANED.getValue());
+        } else {
+            book.getPendingLoans().enqueue(loan);
+        }
+
+        user.getLoans().insertAtStart(loan);
+        Data.loans.insertAtStart(loan);
+
+        return user.getLoans();
+    }
+
+    public SimpleLinkedList<Loan> returnLoan(String userString, String idLoan) {
+
+        User user = Data.users.search(User.builder().user(userString).build());
+        Loan loan = Data.loans.search(Loan.builder().id(idLoan).build());
+        Book book = Data.books.search(Book.builder().id(loan.getBook().getId()).build());
+
+        loan.setState(LoanState.RETURNED.getValue());
+
+        if (book.getPendingLoans().isEmpty()) {
+            book.setState(BookState.AVAILABLE.getValue());
+        } else {
+            Loan newLoan = book.getPendingLoans().dequeue();
+            newLoan.setLoanDate(LocalDate.now());
+            newLoan.setState(LoanState.LOANED.getValue()); //TODO: Notificacion usuario prestamo libro
+        }
+
+        return user.getLoans();
+    }
+
+    public SimpleLinkedList<Loan> cancelLoan(String userString, String idLoan) {
+        User user = Data.users.search(User.builder().user(userString).build());
+        Loan loan = Data.loans.search(Loan.builder().id(idLoan).build());
+        Book book = Data.books.search(Book.builder().id(loan.getBook().getId()).build());
+
+        if (loan.getState().equals(LoanState.WAITING.getValue())) {
+            user.getLoans().remove(loan);
+            Data.loans.remove(loan);
+            QueueUtils.remove(book.getPendingLoans(), loan);
+        }
+
+        return user.getLoans();
+    }
+
+    public SimpleLinkedList<Loan> getLoans() {
+        return Data.loans;
+    }
+
+    public SimpleLinkedList<Loan> getUserLoans(String userString) {
+        User user = Data.users.search(User.builder().user(userString).build());
+        return user.getLoans();
+    }
+
+    public Queue<Loan> getBookLoans(String idBook) {
+        Book book = Data.books.search(Book.builder().id(idBook).build());
+        return book.getPendingLoans();
+    }
+
+
+}
