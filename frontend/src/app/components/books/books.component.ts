@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { Book } from '../../models/book.model';
 import { ModalComponent } from '../modal/modal.component';
 import { GlobalStateService } from '../../services/global-state.service';
 import { LoginComponent } from "../login/login.component";
 import { StateBook } from '../../enums/state-book.enum';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-books',
@@ -13,10 +14,11 @@ import { StateBook } from '../../enums/state-book.enum';
   templateUrl: './books.component.html',
   styleUrl: './books.component.css'
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent {
   @ViewChild('modal') modal!: ModalComponent;
   @ViewChild('modalLoan') modalLoan!: ModalComponent;
-  private isUserLoggedIn: boolean = false;
+  private userLoggedIn: User | null = null;
+  private bookLoan: Book | null = null;
   public books: Book[] = [];
   public descriptionLoan: string = '';
   public nameBookLoan: string = '';
@@ -24,21 +26,23 @@ export class BooksComponent implements OnInit {
 
   constructor(
     private globalState: GlobalStateService
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.globalState.isUserLoggedIn$.subscribe(state => {
       console.log('Usuario logueado:', state);
-      this.isUserLoggedIn = state;
+      this.userLoggedIn = state;
     });
     this.globalState.books$.subscribe(books => {
       console.log('Libros:', books);
       this.books = books;
     });
+   }
+
+  ngOnInit() {
+    
   }
 
   public openModal(book: Book): void {
-    if (!this.isUserLoggedIn) {
+    if (!this.userLoggedIn) {
       this.modal.open();
     } else {
       console.log('book', book);
@@ -50,6 +54,7 @@ export class BooksComponent implements OnInit {
     const { state } = book;
     this.nameBookLoan = book.title;
     this.stateBookLoan = state;
+    this.bookLoan = book;
     if (state === StateBook.AVAILABLE) {
       this.descriptionLoan = 'Vas a solicitar el prestamo del libro: ';
       this.modalLoan.open();
@@ -67,6 +72,13 @@ export class BooksComponent implements OnInit {
         return 'state-loaned';
       default:
         return '';
+    }
+  }
+
+  public confirmLoan() {
+    if (this.bookLoan) {
+      console.log('Confirmando préstamo del libro:', this.bookLoan, this.userLoggedIn);
+      // Aquí se llamaría al servicio para confirmar el préstamo del libro debe responder el historico de prestamos del usuario
     }
   }
 
