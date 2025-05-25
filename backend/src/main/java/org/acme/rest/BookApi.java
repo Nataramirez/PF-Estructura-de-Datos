@@ -24,12 +24,14 @@ public class BookApi {
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(Book book) {
+        System.out.println("📩 createBook() fue llamado");
         try {
-            BinaryTree<Book> books = bookService.createBook(book);
-            return Response.status(Response.Status.CREATED).entity(books).build();
+            bookService.createBook(book);
+            var list = mapToList.simpleLinkedListToList(bookService.getBooks().toList());
+            return Response.status(Response.Status.CREATED).entity(list).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
-                    "procesar la solicitud. Por favor intente más tade.").build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error al crear el libro: " + e.getMessage()).build();
         }
     }
 

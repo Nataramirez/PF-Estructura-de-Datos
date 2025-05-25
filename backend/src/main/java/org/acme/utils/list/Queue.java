@@ -2,7 +2,9 @@ package org.acme.utils.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Queue<T> implements Iterable<T> {
 
     private int size;
