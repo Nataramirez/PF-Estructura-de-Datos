@@ -25,7 +25,7 @@ public class BookApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBooks() {
         try {
-            List<Book> books = mapToList.BinaryTreeToList(bookService.getBooks());
+            List<Book> books = MapToList.binaryTreeToList(bookService.getBooks());
             return Response.status(Response.Status.OK).entity(books).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -38,7 +38,7 @@ public class BookApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(Book book) {
         try {
-            List<Book> books = mapToList.BinaryTreeToList(bookService.createBook(book));
+            List<Book> books = MapToList.binaryTreeToList(bookService.createBook(book));
             return Response.status(Response.Status.CREATED).entity(books).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
