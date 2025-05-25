@@ -20,5 +20,5 @@ public class Loan {
     private LocalDate loanDate;
     private LocalDate returnDate;
     private String state;
-
+    private int score;
 }

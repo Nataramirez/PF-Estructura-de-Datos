@@ -10,6 +10,7 @@ import org.acme.utils.Data;
 import org.acme.utils.list.Queue;
 import org.acme.utils.list.QueueUtils;
 import org.acme.utils.list.SimpleLinkedList;
+import org.acme.utils.tree.BinaryTree;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -90,5 +91,15 @@ public class LoanService {
         return book.getPendingLoans();
     }
 
+    public BinaryTree<Book> qualifyLoan(String idLoan, int qualification) {
+        Loan loan = Data.loans.search(Loan.builder().id(idLoan).build());
+        Book book = loan.getBook();
 
+        if (loan.getState().equals(LoanState.RETURNED.getValue())) {
+            loan.setScore(qualification);
+            book.setScore((book.getScore() + qualification) / 2);
+        }
+
+        return Data.books;
+    }
 }
