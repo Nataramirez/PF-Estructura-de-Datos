@@ -17,16 +17,13 @@ public class BookApi {
     @Inject
     BookService bookService;
 
-    @Inject
-    MapToList mapToList;
-
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(Book book) {
         try {
             BinaryTree<Book> books = bookService.createBook(book);
-            return Response.status(Response.Status.CREATED).entity(books).build();
+            return Response.status(Response.Status.CREATED).entity(MapToList.binaryTreeToList(books)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
                     "procesar la solicitud. Por favor intente más tade.").build();
@@ -52,7 +49,7 @@ public class BookApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response searchBooksCategory(@QueryParam("category") String category) {
         try {
-            List<Book> books = mapToList.simpleLinkedListToList(bookService.searchBooksCategory(category));
+            List<Book> books = MapToList.simpleLinkedListToList(bookService.searchBooksCategory(category));
             return Response.status(Response.Status.OK).entity(books).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -66,7 +63,7 @@ public class BookApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response searchBooksNameOrAuthor(@QueryParam("param") String param) {
         try {
-            List<Book> books = mapToList.simpleLinkedListToList(bookService.searchBooksNameOrAuthor(param));
+            List<Book> books = MapToList.simpleLinkedListToList(bookService.searchBooksNameOrAuthor(param));
             return Response.status(Response.Status.OK).entity(books).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
