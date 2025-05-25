@@ -1,13 +1,13 @@
 <div class="container-botton">
     <select #categoriesInput [(ngModel)]="searchCategory" class="input" id="mi-selector" name="opciones">
         <option value="">Categoría</option>
-        <option value="Arte">{{ categories.ART }}</option>
-        <option value="Cocina">{{ categories.COOKING }}</option>
-        <option value="Fantasia">{{ categories.FANTASY }}</option>
-        <option value="Historia">{{ categories.HISTORY }}</option>
-        <option value="Misterio">{{ categories.MYSTERY }}</option>
-        <option value="Romance">{{ categories.ROMANCE }}</option>
-        <option value="Ciencia Ficción">{{ categories.SCIENCE_FICTION }}</option>
+        <option value="{{ categories.ART }}">Arte</option>
+        <option value="{{ categories.COOKING }}">Cocina</option>
+        <option value="{{ categories.FANTASY }}">Fantasia</option>
+        <option value="{{ categories.HISTORY }}">Historia</option>
+        <option value="{{ categories.MYSTERY }}">Misterio</option>
+        <option value="{{ categories.ROMANCE }}">Romance</option>
+        <option value="{{ categories.SCIENCE_FICTION }}">Ciencia Ficción</option>
     </select>
     <input #searchInput type="text" placeholder="Nombre o autor" [(ngModel)]="searchName" name="searchName" />
     <button class="button-primary" type="button" (click)="searchBook(categoriesInput.value || searchInput.value)">Buscar</button>

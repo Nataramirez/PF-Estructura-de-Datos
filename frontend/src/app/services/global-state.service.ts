@@ -37,5 +37,15 @@ export class GlobalStateService {
   setLoanBooks(loanBooks: Loan[]) {
     this.loanBooks.next(loanBooks);
   }
+
+  /**
+   * This service is used to manage the global state of the users.
+   */
+  private users = new BehaviorSubject<User[]>([]);
+  users$ = this.users.asObservable();
+
+  setUsers(users: User[]) {
+    this.users.next(users);
+  }
 }
 

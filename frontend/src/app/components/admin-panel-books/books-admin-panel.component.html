@@ -13,7 +13,7 @@
         </div>
 
         <div class="container-loans" *ngFor="let book of books">
-            <span class="loan">{{ book.title }}</span>
+            <span class="loan">{{ book.name }}</span>
             <span class="loan">
                 <div class="stars container-stars">
                     <ng-container *ngFor="let i of [1,2,3,4,5]">
@@ -21,11 +21,11 @@
                     </ng-container>
                 </div>
             </span>
-            <p class="loan">{{ book.category }}</p>
-            <p class="loan">{{ book.state }}</p>
+            <p class="loan">{{ mapCategory(book.category) }}</p>
+            <p class="loan">{{ book.state === stateBookEnum.AVAILABLE ? 'Disponible' : 'Prestado' }}</p>
             <div class="loan action">
-                <button class="button-primary action-button" type="button">Modificar</button>
-                <button [disabled]="book.state !== stateBookEnum.AVAILABLE" class="button-primary action-button" type="button">Eliminar</button>
+                <button [disabled]="book.state !== stateBookEnum.AVAILABLE" class="button-primary action-button"
+                    type="button" (click)="deleteBook(book.id)">Eliminar</button>
             </div>
         </div>
     </div>
@@ -64,15 +64,16 @@
 
             <div class="input-form">
                 <label class="label-login" for="year">Categoría:</label>
-                <select style="width: 212px;" [(ngModel)]="category" class="input" id="mi-selector" name="opciones" required #categoriesInput="ngModel">
+                <select style="width: 212px;" [(ngModel)]="category" class="input" id="mi-selector" name="opciones"
+                    required #categoriesInput="ngModel">
                     <option value="">Opciones</option>
-                    <option value="Arte">{{ categories.ART }}</option>
-                    <option value="Cocina">{{ categories.COOKING }}</option>
-                    <option value="Fantasia">{{ categories.FANTASY }}</option>
-                    <option value="Historia">{{ categories.HISTORY }}</option>
-                    <option value="Misterio">{{ categories.MYSTERY }}</option>
-                    <option value="Romance">{{ categories.ROMANCE }}</option>
-                    <option value="Ciencia Ficción">{{ categories.SCIENCE_FICTION }}</option>
+                    <option value="{{ categories.ART }}">Arte</option>
+                    <option value="{{ categories.COOKING }}">Cocina</option>
+                    <option value="{{ categories.FANTASY }}">Fantasia</option>
+                    <option value="{{ categories.HISTORY }}">Historia</option>
+                    <option value="{{ categories.MYSTERY }}">Misterio</option>
+                    <option value="{{ categories.ROMANCE }}">Romance</option>
+                    <option value="{{ categories.SCIENCE_FICTION }}">Ciencia Ficción</option>
                 </select>
                 <div style="color:red" *ngIf="categoriesInput.invalid && categoriesInput.touched">
                     <small *ngIf="categoriesInput.errors?.['required']">La categoría es obligatoria.</small>
