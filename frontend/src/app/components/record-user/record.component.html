@@ -27,7 +27,7 @@
                 <small *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</small>
             </div>
         </div>
-        <button [disabled]="loginForm.invalid" class="button-primary button-login" type="submit">{{updateUser ? 'Actualizar' : 'Registrarse'}}</button>
+        <button [disabled]="loginForm.invalid" class="button-primary button-login" type="submit">{{ newUser ? 'Crear' : updateUser ? 'Actualizar' : 'Registrarse'}}</button>
     </div>
 
 </form>

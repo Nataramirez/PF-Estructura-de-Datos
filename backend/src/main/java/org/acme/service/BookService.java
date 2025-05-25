@@ -62,7 +62,5 @@ public class BookService {
         return books;
     }
 
-    public BinaryTree<Book> getBooks() {
-        return Data.books;
-    }
+    public BinaryTree<Book> getBooks() { return Data.books; }
 }

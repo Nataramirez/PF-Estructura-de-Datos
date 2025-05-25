@@ -1,9 +1,9 @@
 export enum CategoryBook {
-    FANTASY = 'Fantasia',
-    SCIENCE_FICTION = 'Ciencia Ficción',
-    MYSTERY = 'Misterio',
-    ROMANCE = 'Romance',
-    HISTORY = 'Historia',
-    COOKING = 'Cocina',
-    ART = 'Arte',
+    FANTASY = 'FANTASY',
+    SCIENCE_FICTION = 'SCIENCE_FICTION',
+    MYSTERY = 'MYSTERY',
+    ROMANCE = 'ROMANCE',
+    HISTORY = 'HISTORY',
+    COOKING = 'COOKING',
+    ART = 'ART',
 }

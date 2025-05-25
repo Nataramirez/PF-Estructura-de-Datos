@@ -20,12 +20,25 @@ public class BookApi {
     @Inject
     MapToList mapToList;
 
+    @GET
+    @Path("/get-all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllBooks() {
+        try {
+            List<Book> books = mapToList.BinaryTreeToList(bookService.getBooks());
+            return Response.status(Response.Status.OK).entity(books).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
+                    "procesar la solicitud. Por favor intente más tade.").build();
+        }
+    }
+
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(Book book) {
         try {
-            BinaryTree<Book> books = bookService.createBook(book);
+            List<Book> books = mapToList.BinaryTreeToList(bookService.createBook(book));
             return Response.status(Response.Status.CREATED).entity(books).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +

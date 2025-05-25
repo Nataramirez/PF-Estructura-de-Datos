@@ -9,6 +9,10 @@ export const routesCollection = {
     USER_RECOMMENDATIONS: 'recomendaciones',
     USER_MESSAGES: 'mensajes',
     MAIN_ADMIN: 'administrador',
+    ADMIN_BOOKS: '',
+    ADMIN_USERS: 'usuarios',
+    ADMIN_AFFINITY: 'afinidad',
+    ADMIN_STADISTICS: 'estadisticas',
 }
 
 export const routes: Routes = [
@@ -21,7 +25,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/navigation/main-user/main-user.component').then(m => m.MainUserComponent),
         children: [
             {
-                path: routesCollection.USER_BOOKS,
+                path: '',
                 loadComponent: () => import('./components/books/books.component').then(m => m.BooksComponent),
             },
             {
@@ -47,8 +51,20 @@ export const routes: Routes = [
         loadComponent: () => import('./components/navigation/main-admin/main-admin.component').then(m => m.MainAdminComponent),
         children: [
             {
-                path: '',
-                loadComponent: () => import('./components/books-admin-panel/books-admin-panel.component').then(m => m.BooksAdminPanelComponent)
+                path: routesCollection.ADMIN_BOOKS,
+                loadComponent: () => import('./components/admin-panel-books/books-admin-panel.component').then(m => m.BooksAdminPanelComponent),
+            },
+            {
+                path: routesCollection.ADMIN_USERS,
+                loadComponent: () => import('./components/admin-panel-users/admin-panel-users.component').then(m => m.AdminPanelUsersComponent),
+            },
+            {
+                path: routesCollection.ADMIN_AFFINITY,
+                loadComponent: () => import('./components/affinity/affinity.component').then(m => m.AffinityComponent),
+            },
+            {
+                path: routesCollection.ADMIN_STADISTICS,
+                loadComponent: () => import('./components/stadistics/stadistics.component').then(m => m.StadisticsComponent),
             }
         ]
     }

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { Book } from '../../models/book.model';
 import { ModalComponent } from '../modal/modal.component';
 import { GlobalStateService } from '../../services/global-state.service';
 import { LoginComponent } from "../login/login.component";
 import { StateBook } from '../../enums/state-book.enum';
 import { User } from '../../models/user.model';
+import { CategoryBook } from '../../enums/category-book.enum';
 
 @Component({
   selector: 'app-books',
@@ -35,10 +36,6 @@ export class BooksComponent {
       console.log('Libros:', books);
       this.books = books;
     });
-   }
-
-  ngOnInit() {
-    
   }
 
   public openModal(book: Book): void {
@@ -52,7 +49,7 @@ export class BooksComponent {
 
   public validateStateBook(book: Book): void {
     const { state } = book;
-    this.nameBookLoan = book.title;
+    this.nameBookLoan = book.name;
     this.stateBookLoan = state;
     this.bookLoan = book;
     if (state === StateBook.AVAILABLE) {
@@ -74,6 +71,27 @@ export class BooksComponent {
         return '';
     }
   }
+
+  mapCategory(category: CategoryBook) {
+      switch (category) {
+        case CategoryBook.FANTASY:
+          return 'Fantasía';
+        case CategoryBook.HISTORY:
+          return 'Historia';
+        case CategoryBook.ART:
+          return 'Arte';
+        case CategoryBook.SCIENCE_FICTION:
+          return 'Ciencia Ficción';
+        case CategoryBook.MYSTERY:
+          return 'Misterio';
+        case CategoryBook.ROMANCE:
+          return 'Romance';
+        case CategoryBook.COOKING:
+          return 'Cocina';
+        default:
+          return 'Desconocido';
+      }
+    }
 
   public confirmLoan() {
     if (this.bookLoan) {

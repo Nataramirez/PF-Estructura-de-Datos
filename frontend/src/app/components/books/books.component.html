@@ -1,6 +1,6 @@
 <div class="container-books">
     <div class="card-book" *ngFor="let book of books">
-        <h4>{{ book.title }}</h4>
+        <h4>{{ book.name }}</h4>
         <div class="container-details">
             <div class="container-keys">
                 <p>Calificación:</p>
@@ -15,10 +15,10 @@
                         <span [class.filled]="i <= book.qualification">★</span>
                     </ng-container>
                 </div>
-                <p>{{ book.category }}</p>
+                <p>{{ mapCategory(book.category) }}</p>
                 <p>{{ book.author }}</p>
                 <p>{{ book.year }}</p>
-                <p [className]="getClassByState(book.state)">{{ book.state }}</p>
+                <p [className]="getClassByState(book.state)">{{ book.state === stateBookLoan ? 'Disponible' : 'Prestado' }}</p>
             </div>
 
         </div>

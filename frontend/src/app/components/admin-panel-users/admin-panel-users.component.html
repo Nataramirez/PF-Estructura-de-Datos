@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="container-loans">
+        <button class="button-primary button-new-user" (click)="openModalLogin()">Nuevo Usuario</button>
+    </div>
+
+    <div>
+        <div class="container-loans">
+            <h4 class="button-third loan-columns">Identificación</h4>
+            <h4 class="button-third loan-columns">Nombre</h4>
+            <h4 class="button-third loan-columns">Acción</h4>
+        </div>
+
+        <div class="container-loans" *ngFor="let user of users">
+            <span class="loan">{{ user.identification }}</span>
+            <span class="loan">{{ user.name }}</span>
+            <div class="loan action">
+                <button [disabled]="user.loans.length === 0" class="button-primary action-button"
+                    type="button" (click)="deleteUser(user.id)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal #modalRecordUser title="Crear usuario">
+  <app-record></app-record>
+</app-modal>

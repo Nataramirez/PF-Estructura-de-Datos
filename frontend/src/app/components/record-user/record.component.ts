@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { routesCollection } from '../../app.routes';
 import { User } from '../../models/user.model';
 import { TypeUser } from '../../enums/type-user.enum';
+import { LibraryServicesService } from '../../services/library-services.service';
 
 @Component({
   selector: 'app-record',
@@ -19,13 +20,19 @@ export class RecordComponent {
   public name: string = '';
   public updateUser: boolean = false;
   private userId: String = '';
+  public newUser: boolean = false;
 
   constructor(
     private globalState: GlobalStateService,
-    private router: Router
+    private router: Router,
+    private libraryService: LibraryServicesService
   ) {
     this.globalState.isUserLoggedIn$.subscribe((user) => {
-      if (user) {
+      if (user && user.type === TypeUser.ADMIN) {
+        this.newUser = true;
+      }
+
+      if (user && user.type === TypeUser.USER) {
         this.username = user.identification;
         this.password = user.password;
         this.name = user.name;
@@ -35,37 +42,26 @@ export class RecordComponent {
     });
   }
 
-  onSubmit() {
-    // Handle the record logic here
-    console.log('Username:', this.username);
-    console.log('Password', this.password);
-    console.log('Name:', this.name);
-    try {
+  public async onSubmit() {
+    if (this.updateUser) {
       // si el updateUser es true, debo consumir el servicio para actualizar el usuario
-      // y que retorne el usuario actualizado
-      // de lo contrario debo consumir el servicio para crear el usuario y que retorne el usuario creado
-      const responseCreateUser: User = { 
-        id: '1',
-        name: this.name,
+      console.log('Username:', this.username);
+      console.log('Password', this.password);
+      console.log('Name:', this.name);
+    } else {
+      const responseCreateUser = await this.libraryService.addUser({
+        user: this.username,
         password: this.password,
-        identification: this.username,
-        type: TypeUser.USER,
-        loans: [],
-        scores: []
-      };
-
-      if (responseCreateUser) {
+        name: this.name
+      })
+      if (responseCreateUser && !this.newUser) {
         this.globalState.setUserLoggedIn(responseCreateUser);
-        this.router.navigate([routesCollection.MAIN_USER]);
-      } else {
-        console.error('Error al crear el usuario', responseCreateUser);
-        alert('Error al crear el usuario');
+        this.router.navigate([routesCollection.MAIN_USER], { replaceUrl: true });
+      } else if (responseCreateUser && this.newUser) {
+        this.router.navigate([routesCollection.MAIN_ADMIN]);
+        alert('Usuario creado correctamente');
+
       }
-    } catch (error) {
-      console.error('Error creating user:', error);
-      alert('Error al crear el usuario'); 
     }
-
   }
-
 }
