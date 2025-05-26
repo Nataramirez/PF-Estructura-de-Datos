@@ -66,6 +66,14 @@ public class MapToList {
         return list;
     }
 
+    public static List<UserDTO> binaryTreeUserToList(BinaryTree<User> users) {
+        List<UserDTO> list = new ArrayList<>();
+        for (User user : users) {
+            list.add(userToUserDTO(user));
+        }
+        return list;
+    }
+
     public static UserDTO userToUserDTO(User user) {
 
         return UserDTO.builder()

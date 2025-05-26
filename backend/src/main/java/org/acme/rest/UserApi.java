@@ -1,15 +1,14 @@
 package org.acme.rest;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.model.user.User;
 import org.acme.model.user.UserAuth;
 import org.acme.service.UserService;
 import org.acme.utils.mappers.MapToList;
+import org.acme.utils.tree.BinaryTree;
 
 @Path("/user")
 public class UserApi {
@@ -41,6 +40,18 @@ public class UserApi {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
                     "procesar la solicitud. Por favor intente más tade.").build();
+        }
+    }
+
+    @DELETE
+    @Path("/delete/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteUser(@PathParam("userId") String userId) {
+        try {
+            BinaryTree<User> users = userService.deleteUser(userId);
+            return Response.status(Response.Status.OK).entity(MapToList.binaryTreeUserToList(users)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 }
