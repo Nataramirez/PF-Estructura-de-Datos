@@ -23,7 +23,6 @@ public class UserService {
 
     public void setInitialDataUser(User user) {
         user.setId(UUID.randomUUID().toString());
-        user.setRole(UserRole.USER.getValue());
         user.setLoans(new SimpleLinkedList<Loan>());
         user.setState(UserState._1_DISABLED.getValue());
     }
