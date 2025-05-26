@@ -56,7 +56,8 @@ public class BookService {
         SimpleLinkedList<Book> books = new SimpleLinkedList<>();
         while (iterator.hasNext()) {
             Book book = iterator.next();
-            if (book.getAuthor().contains(param) || book.getName().contains(param)) {
+            if (book.getAuthor().toLowerCase().contains(param.toLowerCase()) ||
+                    book.getName().toLowerCase().contains(param.toLowerCase())) {
                 books.insertAtStart(book);
             }
         }
