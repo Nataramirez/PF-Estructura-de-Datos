@@ -1,7 +1,7 @@
 package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.acme.model.Book;
+import org.acme.model.book.Book;
 import org.acme.model.enums.book.BookCategory;
 import org.acme.model.enums.book.BookState;
 import org.acme.utils.Data;
@@ -29,6 +29,7 @@ public class BookService {
         book.setPendingLoans(new Queue<>());
         book.setScore(0);
         book.setState(BookState.AVAILABLE.getValue());
+        book.setCategory(book.getCategory().toUpperCase());
     }
 
     //TODO: Validar que el libro no se encuentre prestado
@@ -42,7 +43,7 @@ public class BookService {
         SimpleLinkedList<Book> books = new SimpleLinkedList<>();
         while (iterator.hasNext()) {
             Book book = iterator.next();
-            if (book.getCategory().equals(category)) {
+            if (book.getCategory().equals(category.toUpperCase())) {
                 books.insertAtStart(book);
             }
         }

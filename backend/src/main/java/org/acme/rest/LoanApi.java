@@ -4,7 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.model.Book;
+import org.acme.model.book.Book;
 import org.acme.model.Loan;
 import org.acme.service.LoanService;
 import org.acme.utils.list.SimpleLinkedList;
