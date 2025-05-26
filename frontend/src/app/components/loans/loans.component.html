@@ -8,7 +8,7 @@
         <h4 class="button-third loan-columns">Acción</h4>
     </div>
     <div class="container-loans" *ngFor="let loan of loans">
-        <p class="loan">{{ loan?.book?.title }}</p>
+        <p class="loan">{{ loan?.book?.name }}</p>
         <span class="loan loan-rate">
             <div class="stars container-stars">
                 <ng-container *ngFor="let i of [1,2,3,4,5]">
@@ -20,16 +20,16 @@
         <p class="loan">{{ loan?.dateLoan }}</p>
         <p class="loan">{{ loan?.dateReturn ? loan?.dateReturn : 'No Devuelto' }}</p>
         <button value="{{ loan?.dateReturn ? 'Devolver' : 'Calificar' }}" class="loan button-primary action"
-            (click)="loan?.dateReturn ? (loan?.book && rateBook(loan.book)) : (loan?.book?.state === 'Prestado') ? deleteLoan(loan) : returnBook()">
-            {{ loan?.dateReturn ? 'Calificar' : loan?.book?.state === 'Prestado' ? 'En espera' : 'Devolver' }}
+            (click)="loan?.dateReturn ? (loan?.book && rateBook(loan.book)) : (loan?.book?.state === stateBookEnum.LOANED ? deleteLoan(loan) : returnBook())">
+            {{ loan?.dateReturn ? 'Calificar' : loan?.book?.state === stateBookEnum.LOANED ? 'En espera' : 'Devolver' }}
         </button>
     </div>
 </div>
 
-<app-modal class="modal-rate" #modalRate title="Calificar Libro">
+<app-modal class="modal-rate" #modalRate name="Calificar Libro">
     <div class="modal-rate" style="margin: 36px;" >
         <p class="modal-rate">Al seleccionar una de las opciones, se enviará la calificación correspondiente. Vas a calificar el libro:</p>
-        <h5 class="modal-rate">{{ bookRate?.title }}.</h5>
+        <h5 class="modal-rate">{{ bookRate?.name }}.</h5>
         <div class="options" >
             <div *ngFor="let i of [1,2,3,4,5]">
                 <button #rate value="{{i}}" class="button-primary rate" (click)="sendRating(i)">{{i}}</button>
@@ -38,10 +38,10 @@
     </div>
 </app-modal>
 
-<app-modal #modalDeleteLoan title="Eliminar Préstamo">
+<app-modal #modalDeleteLoan name="Eliminar Préstamo">
     <div style="margin: 36px;">
         <p>¿Estás seguro de que deseas eliminar este préstamo del libro?</p>
-        <h5>{{ loanDelete?.book?.title }}.</h5>
+        <h5>{{ loanDelete?.book?.name }}.</h5>
         <div class="options">
             <button class="button-primary" (click)="confirmDeleteLoan()">Eliminar</button>
         </div>

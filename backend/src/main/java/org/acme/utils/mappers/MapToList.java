@@ -12,14 +12,12 @@ import java.util.List;
 @ApplicationScoped
 public class MapToList {
 
-    public List<Book> simpleLinkedListToList(SimpleLinkedList<Book> books){
-        List<Book> listBooks = new ArrayList<>();
-        Iterator<Book> iterator = books.iterator();
-        while (iterator.hasNext()){
-            listBooks.add(iterator.next());
+    public static <T> List<T> simpleLinkedListToList(SimpleLinkedList<T> listT) {
+        List<T> list = new ArrayList<>();
+        for (T element : listT) {
+            list.add(element);
         }
-
-        return listBooks;
+        return list;
     }
 
     public static <T extends Comparable<T>> List<T> binaryTreeToList(BinaryTree<T> tree) {

@@ -21,6 +21,7 @@ export class LoansComponent {
   public user: User | null = null;
   public bookRate: Book | null = null;
   public loanDelete: Loan | null = null;
+  public stateBookEnum = StateBook;
 
   constructor(
     private globalState: GlobalStateService
@@ -49,12 +50,13 @@ export class LoansComponent {
       const loans = [{
         id: '1',
         book: {
-          "title": "Algorithms to Live By",
+          "name": "Algorithms to Live By",
           "author": "Brian Christian",
           "year": "2016",
           "qualification": 2,
           "category": CategoryBook.SCIENCE_FICTION,
-          "state": StateBook.AVAILABLE
+          "state": StateBook.AVAILABLE,
+          "id": "18"
         },
         dateLoan: '2023-10-01',
         dateReturn: '2023-10-15'
@@ -62,12 +64,13 @@ export class LoansComponent {
       {
         id: '2',
         book: {
-          "title": "Why Nations Fail",
+          "name": "Why Nations Fail",
           "author": "Daron Acemoglu",
           "year": "2012",
           "qualification": 1,
           "category": CategoryBook.HISTORY,
-          "state": StateBook.AVAILABLE
+          "state": StateBook.AVAILABLE,
+          "id": "2"
         },
         dateLoan: '2023-10-01',
         dateReturn: '2023-10-15'
@@ -75,12 +78,13 @@ export class LoansComponent {
       {
         id: '3',
         book: {
-          "title": "The Knowledge",
+          "name": "The Knowledge",
           "author": "Lewis Dartnell",
           "year": "2014",
           "qualification": 2,
           "category": CategoryBook.SCIENCE_FICTION,
-          "state": StateBook.LOANED
+          "state": StateBook.LOANED,
+          "id": "4"
         },
         dateLoan: '2023-10-01',
         dateReturn: null
@@ -119,12 +123,13 @@ export class LoansComponent {
       const loans = [{
         id: '1',
         book: {
-          "title": "Algorithms to Live By",
+          "name": "Algorithms to Live By",
           "author": "Brian Christian",
           "year": "2016",
           "qualification": 2,
           "category": CategoryBook.SCIENCE_FICTION,
-          "state": StateBook.AVAILABLE
+          "state": StateBook.AVAILABLE,
+          "id": "18"
         },
         dateLoan: '2023-10-01',
         dateReturn: '2023-10-15'
@@ -132,12 +137,13 @@ export class LoansComponent {
       {
         id: '2',
         book: {
-          "title": "Why Nations Fail",
+          "name": "Why Nations Fail",
           "author": "Daron Acemoglu",
           "year": "2012",
           "qualification": 1,
           "category": CategoryBook.HISTORY,
-          "state": StateBook.AVAILABLE
+          "state": StateBook.AVAILABLE,
+          "id": "2"
         },
         dateLoan: '2023-10-01',
         dateReturn: '2023-10-15'
