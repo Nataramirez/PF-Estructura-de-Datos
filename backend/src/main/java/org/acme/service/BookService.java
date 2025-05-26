@@ -3,7 +3,6 @@ package org.acme.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Singleton;
 import jakarta.inject.Inject;
 import org.acme.model.Book;
 import org.acme.model.enums.book.BookCategory;
