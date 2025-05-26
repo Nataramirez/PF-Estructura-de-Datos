@@ -29,6 +29,7 @@ public class BookService {
         book.setPendingLoans(new Queue<>());
         book.setScore(0);
         book.setState(BookState.AVAILABLE.getValue());
+        book.setCategory(book.getCategory().toUpperCase());
     }
 
     //TODO: Validar que el libro no se encuentre prestado
@@ -42,7 +43,7 @@ public class BookService {
         SimpleLinkedList<Book> books = new SimpleLinkedList<>();
         while (iterator.hasNext()) {
             Book book = iterator.next();
-            if (book.getCategory().equals(category)) {
+            if (book.getCategory().equals(category.toUpperCase())) {
                 books.insertAtStart(book);
             }
         }
