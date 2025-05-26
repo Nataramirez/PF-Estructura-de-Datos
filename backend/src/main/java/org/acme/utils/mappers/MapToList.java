@@ -22,14 +22,11 @@ public class MapToList {
         return listBooks;
     }
 
-    public List<Book> binaryTreeToList(BinaryTree<Book> books){
-        List<Book> listBooks = new ArrayList<>();
-        Iterator<Book> iterator = books.iterator();
-        while (iterator.hasNext()){
-            listBooks.add(iterator.next());
+    public static <T extends Comparable<T>> List<T> binaryTreeToList(BinaryTree<T> tree) {
+        List<T> list = new ArrayList<>();
+        for (T element : tree) {
+            list.add(element);
         }
-        return listBooks;
+        return list;
     }
-
-
 }
