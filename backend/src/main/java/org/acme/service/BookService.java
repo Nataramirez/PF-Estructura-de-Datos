@@ -2,6 +2,7 @@ package org.acme.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Singleton;
 import jakarta.inject.Inject;
 import org.acme.model.Book;
@@ -19,7 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-@Singleton
+@ApplicationScoped
 public class BookService {
 
     @Inject
