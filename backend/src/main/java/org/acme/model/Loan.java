@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.acme.model.book.Book;
 import org.acme.model.user.User;
 
 import java.time.LocalDate;

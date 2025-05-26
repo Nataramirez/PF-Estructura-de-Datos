@@ -1,7 +1,7 @@
 package org.acme.utils;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.acme.model.Book;
+import org.acme.model.book.Book;
 import org.acme.model.Loan;
 import org.acme.model.user.User;
 import org.acme.utils.list.SimpleLinkedList;
