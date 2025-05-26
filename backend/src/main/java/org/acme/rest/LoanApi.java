@@ -5,7 +5,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.model.book.Book;
-import org.acme.model.Loan;
+import org.acme.model.book.BookDTO;
+import org.acme.model.loan.Loan;
+import org.acme.model.loan.LoanDTO;
 import org.acme.service.LoanService;
 import org.acme.utils.list.SimpleLinkedList;
 import org.acme.utils.mappers.MapToList;
@@ -13,6 +15,7 @@ import org.acme.utils.tree.BinaryTree;
 
 import java.util.List;
 
+@Path("/loan")
 public class LoanApi {
 
     @Inject
@@ -21,10 +24,10 @@ public class LoanApi {
     @POST
     @Path("/apply")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response applyForLoan(String idBook, String userForApply) {
+    public Response applyForLoan(@QueryParam("idBook") String idBook, @QueryParam("userForApply") String userForApply) {
         try {
             SimpleLinkedList<Loan> loans = loanService.applyForLoan(idBook, userForApply);
-            List<Loan> loansList = MapToList.simpleLinkedListToList(loans);
+            List<LoanDTO> loansList = MapToList.simpleLinkedListLoansToList(loans);
             return Response.status(Response.Status.CREATED).entity(loansList).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -35,10 +38,10 @@ public class LoanApi {
     @POST
     @Path("/return")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response returnLoan(String userString, String idLoan) {
+    public Response returnLoan(@QueryParam("userString") String userString, @QueryParam("idLoan") String idLoan) {
         try {
             SimpleLinkedList<Loan> loans = loanService.returnLoan(userString, idLoan);
-            List<Loan> loansList = MapToList.simpleLinkedListToList(loans);
+            List<LoanDTO> loansList = MapToList.simpleLinkedListLoansToList(loans);
             return Response.status(Response.Status.OK).entity(loansList).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -49,10 +52,10 @@ public class LoanApi {
     @POST
     @Path("/cancel")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response cancelLoan(String userString, String idLoan) {
+    public Response cancelLoan(@QueryParam("userString") String userString, @QueryParam("idLoan") String idLoan) {
         try {
             SimpleLinkedList<Loan> loans = loanService.cancelLoan(userString, idLoan);
-            List<Loan> loansList = MapToList.simpleLinkedListToList(loans);
+            List<LoanDTO> loansList = MapToList.simpleLinkedListLoansToList(loans);
             return Response.status(Response.Status.OK).entity(loansList).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -65,7 +68,7 @@ public class LoanApi {
     public Response getLoans() {
         try {
             SimpleLinkedList<Loan> loans = loanService.getLoans();
-            List<Loan> loansList = MapToList.simpleLinkedListToList(loans);
+            List<LoanDTO> loansList = MapToList.simpleLinkedListLoansToList(loans);
             return Response.status(Response.Status.OK).entity(loansList).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -76,10 +79,10 @@ public class LoanApi {
     @GET
     @Path("/get-loans-user")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserLoans(String userString) {
+    public Response getUserLoans(@QueryParam("userString") String userString) {
         try {
             SimpleLinkedList<Loan> loans = loanService.getUserLoans(userString);
-            List<Loan> loansList = MapToList.simpleLinkedListToList(loans);
+            List<LoanDTO> loansList = MapToList.simpleLinkedListLoansToList(loans);
             return Response.status(Response.Status.OK).entity(loansList).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
@@ -92,8 +95,8 @@ public class LoanApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response qualifyLoan(@PathParam("idLoan") String idLoan, @QueryParam("qualification") int qualification) {
         try {
-            BinaryTree<Book> loans = loanService.qualifyLoan(idLoan, qualification);
-            List<Book> loansList = MapToList.binaryTreeToList(loans);
+            BinaryTree<Book> books = loanService.qualifyLoan(idLoan, qualification);
+            List<BookDTO> loansList = MapToList.binaryTreeBookToList(books);
             return Response.status(Response.Status.OK).entity(loansList).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +

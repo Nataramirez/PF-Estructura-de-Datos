@@ -2,7 +2,7 @@ package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.model.book.Book;
-import org.acme.model.Loan;
+import org.acme.model.loan.Loan;
 import org.acme.model.enums.book.BookState;
 import org.acme.model.enums.loan.LoanState;
 import org.acme.model.user.User;
