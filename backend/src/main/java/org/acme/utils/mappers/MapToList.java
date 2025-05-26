@@ -22,7 +22,7 @@ public class MapToList {
         return listBooks;
     }
 
-    public List<Book> BinaryTreeToList(BinaryTree<Book> books){
+    public List<Book> binaryTreeToList(BinaryTree<Book> books){
         List<Book> listBooks = new ArrayList<>();
         Iterator<Book> iterator = books.iterator();
         while (iterator.hasNext()){
