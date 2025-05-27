@@ -44,10 +44,16 @@ export class RecordComponent {
 
   public async onSubmit() {
     if (this.updateUser) {
-      // si el updateUser es true, debo consumir el servicio para actualizar el usuario
-      console.log('Username:', this.username);
-      console.log('Password', this.password);
-      console.log('Name:', this.name);
+      const requestUpdateUser = {
+        user: this.username,
+        name: this.name,
+        password: this.password
+      }
+      const responseUpdateUsers = await this.libraryService.updateUser(requestUpdateUser);
+      console.log(responseUpdateUsers);
+      const users = await this.libraryService.getAllUsers();
+      this.globalState.setUsers(users);
+      
     } else {
       const responseCreateUser = await this.libraryService.addUser({
         user: this.username,
@@ -59,10 +65,15 @@ export class RecordComponent {
         this.globalState.setUserLoggedIn(responseCreateUser);
         this.router.navigate([routesCollection.MAIN_USER], { replaceUrl: true });
       } else if (responseCreateUser && this.newUser) {
-        this.router.navigate([routesCollection.MAIN_ADMIN]);
+        const users = await this.libraryService.getAllUsers();
+        this.globalState.setUsers(users);
+        this.router.navigate([routesCollection.MAIN_ADMIN, routesCollection.ADMIN_USERS]);
         alert('Usuario creado correctamente');
-
       }
     }
+    this.username = '';
+    this.password = '';
+    this.name = '';
+    this.updateUser = false;
   }
 }

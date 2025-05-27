@@ -79,25 +79,25 @@ export class BooksComponent {
   }
 
   mapCategory(category: CategoryBook) {
-      switch (category) {
-        case CategoryBook.FANTASY:
-          return 'Fantasía';
-        case CategoryBook.HISTORY:
-          return 'Historia';
-        case CategoryBook.ART:
-          return 'Arte';
-        case CategoryBook.SCIENCE_FICTION:
-          return 'Ciencia Ficción';
-        case CategoryBook.MYSTERY:
-          return 'Misterio';
-        case CategoryBook.ROMANCE:
-          return 'Romance';
-        case CategoryBook.COOKING:
-          return 'Cocina';
-        default:
-          return 'Desconocido';
-      }
+    switch (category) {
+      case CategoryBook.FANTASY:
+        return 'Fantasía';
+      case CategoryBook.HISTORY:
+        return 'Historia';
+      case CategoryBook.ART:
+        return 'Arte';
+      case CategoryBook.SCIENCE_FICTION:
+        return 'Ciencia Ficción';
+      case CategoryBook.MYSTERY:
+        return 'Misterio';
+      case CategoryBook.ROMANCE:
+        return 'Romance';
+      case CategoryBook.COOKING:
+        return 'Cocina';
+      default:
+        return 'Desconocido';
     }
+  }
 
   public async confirmLoan() {
     if (this.bookLoan && this.userLoggedIn) {
@@ -108,7 +108,8 @@ export class BooksComponent {
       }
       const responseLoanApply = await this.libraryServicesService.loanBook(loanBookRequest);
       console.log('Respuesta del préstamo:', responseLoanApply);
-      this.globalState.setUserLoggedIn(responseLoanApply.user);
+      this.globalState.setBooks(await this.libraryServicesService.getAllBooks());
+      this.globalState.setLoanBooks(responseLoanApply);
       this.modalLoan.close();
     }
   }

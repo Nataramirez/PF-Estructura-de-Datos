@@ -31,28 +31,24 @@ export class LoginComponent {
   }
 
   public async onSubmit() {
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
+    try {
+      const user = await this.libraryService.authUser({
+        user: this.username,
+        password: this.password
+      });
+      this.globalState.setUserLoggedIn(user);
+      this.globalState.setLoanBooks(user.loans);
 
-    const user = await this.libraryService.authUser({
-      user: this.username,
-      password: this.password
-    });
-    
-    if (!user) {
+      if (user.role === TypeUser.USER) {
+        this.router.navigate([routesCollection.MAIN_USER]);
+      }
+
+      if (user.role === TypeUser.ADMIN) {
+        this.router.navigate([routesCollection.MAIN_ADMIN]);
+      }
+    } catch (error) {
       alert('Usuario o contraseña incorrectos. Intenta nuevamente');
       return;
-    }
-
-    this.globalState.setUserLoggedIn(user);
-    this.globalState.setLoanBooks(user.loans);
-
-    if (user.role === TypeUser.USER) {
-      this.router.navigate([routesCollection.MAIN_USER]);
-    } 
-    
-    if (user.role === TypeUser.ADMIN) {
-      this.router.navigate([routesCollection.MAIN_ADMIN]);
     }
   }
 

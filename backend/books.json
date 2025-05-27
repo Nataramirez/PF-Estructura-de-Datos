@@ -1,15 +1,4 @@
 [ {
-  "id" : "06272797-7f34-4692-aba0-1eb63c6f4473",
-  "name" : "Gödel, Escher, Bach",
-  "author" : "Douglas R. Hofstadter",
-  "category" : "ART",
-  "score" : 0,
-  "state" : "AVAILABLE",
-  "year" : 1979,
-  "pendingLoans" : {
-    "empty" : true
-  }
-}, {
   "id" : "17f2b8cd-12d8-4062-94fd-02fddd36d025",
   "name" : "The anatomy of racial inequality",
   "author" : "Glenn C. Loury",
@@ -28,17 +17,6 @@
   "score" : 0,
   "state" : "AVAILABLE",
   "year" : 2012,
-  "pendingLoans" : {
-    "empty" : true
-  }
-}, {
-  "id" : "288861f8-9d93-4061-af60-e743decb1071",
-  "name" : "Evicted",
-  "author" : "Matthew Desmond",
-  "category" : "HISTORY",
-  "score" : 0,
-  "state" : "AVAILABLE",
-  "year" : 2016,
   "pendingLoans" : {
     "empty" : true
   }
@@ -116,17 +94,6 @@
   "score" : 0,
   "state" : "AVAILABLE",
   "year" : 1834,
-  "pendingLoans" : {
-    "empty" : true
-  }
-}, {
-  "id" : "a36ae16a-549a-42a4-918c-0cac49304fc9",
-  "name" : "Mandarin Chinese",
-  "author" : "Yong Ho",
-  "category" : "COOKING",
-  "score" : 0,
-  "state" : "AVAILABLE",
-  "year" : 2007,
   "pendingLoans" : {
     "empty" : true
   }
