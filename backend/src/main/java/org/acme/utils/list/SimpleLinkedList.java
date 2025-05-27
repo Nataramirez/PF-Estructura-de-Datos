@@ -1,12 +1,16 @@
 package org.acme.utils.list;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@JsonIgnoreProperties (ignoreUnknown = true)
 public class SimpleLinkedList<T> implements Iterable<T> {
 
     private int size;
     private Node<T> firstNode;
+    private Node<T> lastNode;
 
     public SimpleLinkedList() {
         size = 0;
@@ -21,6 +25,18 @@ public class SimpleLinkedList<T> implements Iterable<T> {
         } else {
             node.setNext(firstNode);
             firstNode = node;
+        }
+        size++;
+    }
+
+    public void insertAtEnd(T value) {
+        Node<T> node = new Node<>(value);
+        if (size == 0) {
+            firstNode = node;
+            lastNode = node;
+        } else {
+            lastNode.setNext(node);
+            lastNode = node;
         }
         size++;
     }

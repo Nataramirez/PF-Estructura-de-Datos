@@ -14,8 +14,8 @@
             <span class="loan">{{ user.user }}</span>
             <span class="loan">{{ user.name }}</span>
             <div class="loan action">
-                <button [disabled]="user.loans.length === 0" class="button-primary action-button"
-                    type="button" (click)="deleteUser(user.id)">Eliminar</button>
+                <button [disabled]="user.loans.length !== 0" class="button-primary action-button"
+                    type="button" (click)="deleteUser(user.user)">Eliminar</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,166 @@
+[ {
+  "id" : "17f2b8cd-12d8-4062-94fd-02fddd36d025",
+  "name" : "The anatomy of racial inequality",
+  "author" : "Glenn C. Loury",
+  "category" : "HISTORY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2002,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "22fe7662-d43f-4c9d-99e0-710b09afaeaf",
+  "name" : "Why Nations Fail",
+  "author" : "Daron Acemoglu",
+  "category" : "HISTORY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2012,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "2a229882-b6b3-4de3-9ee1-9c13304f43eb",
+  "name" : "The Diamond Age",
+  "author" : "Neal Stephenson",
+  "category" : "FANTASY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 1995,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "30845f22-909e-468f-abb1-051c7fdb0faf",
+  "name" : "The Knowledge",
+  "author" : "Lewis Dartnell",
+  "category" : "SCIENCE_FICTION",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2014,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "462abfe6-e67c-4352-ba92-b056d40ae707",
+  "name" : "The Name of the Wind",
+  "author" : "Patrick Rothfuss",
+  "category" : "FANTASY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2007,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "5bbd1e13-17f3-4ac7-8401-525e98be4fee",
+  "name" : "Algorithms to Live By",
+  "author" : "Brian Christian",
+  "category" : "SCIENCE_FICTION",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2016,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "5cf776b7-8405-4339-ac9e-8e02ea787a07",
+  "name" : "The consolations of philosophy",
+  "author" : "Alain De Botton",
+  "category" : "MYSTERY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2000,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "61284d0e-d45a-4428-b95f-04db9a251a69",
+  "name" : "Essais",
+  "author" : "Michel de Montaigne",
+  "category" : "ART",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 1600,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "99cee6d8-ae9c-472a-a213-62feecc75d2c",
+  "name" : "The Inner Game of Tennis",
+  "author" : "W. Timothy Gallwey",
+  "category" : "ART",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 1834,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "bd08649c-a708-4271-baf7-004075796d56",
+  "name" : "Nonviolent Communication",
+  "author" : "Marshall B. Rosenberg",
+  "category" : "ROMANCE",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 1999,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "c67c3921-8246-42f9-9258-0568159664bf",
+  "name" : "The 48 Laws of Power",
+  "author" : "Robert Greene",
+  "category" : "MYSTERY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 1998,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "c9c89f54-e720-4ee4-8b07-878a122fd531",
+  "name" : "The Secret of Apollo",
+  "author" : "Stephen B. Johnson",
+  "category" : "SCIENCE_FICTION",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2002,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "eba5b58f-36dc-4383-9924-881b7719e636",
+  "name" : "Cataloging the world",
+  "author" : "Alex Wright",
+  "category" : "SCIENCE_FICTION",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2014,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "f37dba08-1d39-4dad-8aac-3ad2cb4c7926",
+  "name" : "The Mastery and Uses of Fire in Antiquity",
+  "author" : "J. E. Rehder",
+  "category" : "HISTORY",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2000,
+  "pendingLoans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "f7c035ca-087a-4e58-89d0-79e3aa907d7d",
+  "name" : "Library",
+  "author" : "Arthur der Weduwen",
+  "category" : "ART",
+  "score" : 0,
+  "state" : "AVAILABLE",
+  "year" : 2021,
+  "pendingLoans" : {
+    "empty" : true
+  }
+} ]

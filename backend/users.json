@@ -1,0 +1,51 @@
+[ {
+  "id" : "a0f108a2-5433-42f7-885e-a7b2049df50c",
+  "name" : "Natalia",
+  "password" : "1094",
+  "user" : "1094",
+  "state" : "DISABLED",
+  "role" : "USER",
+  "loans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "bfad95fc-3892-494f-ade4-74cc017c466c",
+  "name" : "Sara",
+  "password" : "1095",
+  "user" : "1095",
+  "state" : "DISABLED",
+  "role" : "USER",
+  "loans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "0709cfbd-2118-44e6-a682-604581682cb6",
+  "name" : "Valentina",
+  "password" : "1096",
+  "user" : "1096",
+  "state" : "DISABLED",
+  "role" : "USER",
+  "loans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "6ce585be-53e3-456d-b585-cb628149b522",
+  "name" : "Diego",
+  "password" : "1097",
+  "user" : "1097",
+  "state" : "DISABLED",
+  "role" : "USER",
+  "loans" : {
+    "empty" : true
+  }
+}, {
+  "id" : "31ef7a4d-022f-4b7c-a15b-d6bc8839208f",
+  "name" : "ADMIN",
+  "password" : "123456",
+  "user" : "123456",
+  "state" : "DISABLED",
+  "role" : "ADMIN",
+  "loans" : {
+    "empty" : true
+  }
+} ]
