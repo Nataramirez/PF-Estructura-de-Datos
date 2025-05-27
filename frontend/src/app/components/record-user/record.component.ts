@@ -28,12 +28,12 @@ export class RecordComponent {
     private libraryService: LibraryServicesService
   ) {
     this.globalState.isUserLoggedIn$.subscribe((user) => {
-      if (user && user.type === TypeUser.ADMIN) {
+      if (user && user.role === TypeUser.ADMIN) {
         this.newUser = true;
       }
 
-      if (user && user.type === TypeUser.USER) {
-        this.username = user.identification;
+      if (user && user.role === TypeUser.USER) {
+        this.username = user.user;
         this.password = user.password;
         this.name = user.name;
         this.updateUser = true;
@@ -52,7 +52,8 @@ export class RecordComponent {
       const responseCreateUser = await this.libraryService.addUser({
         user: this.username,
         password: this.password,
-        name: this.name
+        name: this.name,
+        role: TypeUser.USER
       })
       if (responseCreateUser && !this.newUser) {
         this.globalState.setUserLoggedIn(responseCreateUser);

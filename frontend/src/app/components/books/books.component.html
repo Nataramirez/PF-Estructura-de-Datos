@@ -12,13 +12,13 @@
             <div>
                 <div class="stars container-stars">
                     <ng-container *ngFor="let i of [1,2,3,4,5]">
-                        <span [class.filled]="i <= book.qualification">★</span>
+                        <span [class.filled]="i <= book.score">★</span>
                     </ng-container>
                 </div>
                 <p>{{ mapCategory(book.category) }}</p>
                 <p>{{ book.author }}</p>
                 <p>{{ book.year }}</p>
-                <p [className]="getClassByState(book.state)">{{ book.state === stateBookLoan ? 'Disponible' : 'Prestado' }}</p>
+                <p [className]="getClassByState(book.state)">{{ stateBook }}</p>
             </div>
 
         </div>

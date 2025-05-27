@@ -31,16 +31,18 @@ export class SearchBooksComponent {
       if (Object.values(CategoryBook).includes(searchInput as CategoryBook)) {
         const responseSearchCategory = await this.libraryServicesService.getBookByCategory(searchInput);
         this.globalState.setBooks(responseSearchCategory);
+        this.getUserState();
       } else {
         const responseSearchNameOrAuthor = await this.libraryServicesService.getBookByNameOrAuthor(searchInput);
         this.globalState.setBooks(responseSearchNameOrAuthor);
+        this.getUserState();
       }
       this.searchName = '';
       this.searchCategory = '';
     } else {
       alert('Por favor ingrese un nombre o categoria para buscar');
     }
-
+    
   }
 
   public async allbooks() {
@@ -52,12 +54,11 @@ export class SearchBooksComponent {
   public getUserState() {
     this.globalState.isUserLoggedIn$.subscribe(user => {
       if (user) {
-        if (user.type === TypeUser.USER) {
+        if (user.role === TypeUser.USER) {
           this.router.navigate([routesCollection.MAIN_USER], { replaceUrl: true });
-        } else if (user.type === TypeUser.ADMIN) {
+        } else if (user.role === TypeUser.ADMIN) {
           this.router.navigate([routesCollection.MAIN_ADMIN], { replaceUrl: true });
         }
-        console.log('El usuario está logueado');
       }
     });
   }
