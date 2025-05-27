@@ -2,7 +2,7 @@ package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.model.book.Book;
-import org.acme.model.Loan;
+import org.acme.model.loan.Loan;
 import org.acme.model.enums.book.BookState;
 import org.acme.model.enums.loan.LoanState;
 import org.acme.model.user.User;
@@ -13,6 +13,7 @@ import org.acme.utils.list.SimpleLinkedList;
 import org.acme.utils.tree.BinaryTree;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -47,7 +48,7 @@ public class LoanService {
     public SimpleLinkedList<Loan> returnLoan(String userString, String idLoan) {
 
         User user = Data.users.search(User.builder().user(userString).build());
-        Loan loan = Data.loans.search(Loan.builder().id(idLoan).build());
+        Loan loan = getLoan(idLoan);
         Book book = Data.books.search(Book.builder().id(loan.getBook().getId()).build());
 
         loan.setState(LoanState.RETURNED.getValue());
@@ -65,7 +66,7 @@ public class LoanService {
 
     public SimpleLinkedList<Loan> cancelLoan(String userString, String idLoan) {
         User user = Data.users.search(User.builder().user(userString).build());
-        Loan loan = Data.loans.search(Loan.builder().id(idLoan).build());
+        Loan loan = getLoan(idLoan);
         Book book = Data.books.search(Book.builder().id(loan.getBook().getId()).build());
 
         if (loan.getState().equals(LoanState.WAITING.getValue())) {
@@ -92,7 +93,7 @@ public class LoanService {
     }
 
     public BinaryTree<Book> qualifyLoan(String idLoan, int qualification) {
-        Loan loan = Data.loans.search(Loan.builder().id(idLoan).build());
+        Loan loan = getLoan(idLoan);
         Book book = loan.getBook();
 
         if (loan.getState().equals(LoanState.RETURNED.getValue())) {
@@ -101,5 +102,16 @@ public class LoanService {
         }
 
         return Data.books;
+    }
+
+    public Loan getLoan(String idLoan) {
+        Iterator<Loan> iterator = Data.loans.iterator();
+        while (iterator.hasNext()){
+            Loan loan = iterator.next();
+            if (loan.getId().equals(idLoan)) {
+                return loan;
+            }
+        }
+        return null;
     }
 }

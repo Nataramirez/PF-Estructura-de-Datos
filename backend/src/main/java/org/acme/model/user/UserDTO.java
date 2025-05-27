@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.acme.model.Loan;
+import org.acme.model.loan.Loan;
 
 import java.util.List;
 

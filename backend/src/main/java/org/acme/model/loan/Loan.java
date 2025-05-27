@@ -1,4 +1,4 @@
-package org.acme.model;
+package org.acme.model.loan;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

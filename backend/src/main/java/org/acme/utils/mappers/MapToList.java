@@ -1,8 +1,10 @@
 package org.acme.utils.mappers;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.acme.model.loan.Loan;
 import org.acme.model.book.Book;
 import org.acme.model.book.BookDTO;
+import org.acme.model.loan.LoanDTO;
 import org.acme.model.user.User;
 import org.acme.model.user.UserDTO;
 import org.acme.utils.list.Queue;
@@ -49,6 +51,15 @@ public class MapToList {
         return list;
     }
 
+    public static List<LoanDTO> simpleLinkedListLoansToList(SimpleLinkedList<Loan> listLoans) {
+        List<LoanDTO> list = new ArrayList<>();
+        for (Loan loan : listLoans) {
+            list.add(loanToLoanDTO(loan));
+
+        }
+        return list;
+    }
+
     public static List<BookDTO> simpleLinkedListBookToList(SimpleLinkedList<Book> booksList) {
         List<BookDTO> list = new ArrayList<>();
         for (Book book : booksList) {
@@ -72,6 +83,19 @@ public class MapToList {
             list.add(userToUserDTO(user));
         }
         return list;
+    }
+
+    public static LoanDTO loanToLoanDTO(Loan loan) {
+
+        return LoanDTO.builder()
+                .id(loan.getId())
+                .state(loan.getState())
+                .user(userToUserDTO(loan.getUser()))
+                .book(bookToBookDTO(loan.getBook()))
+                .loanDate(loan.getLoanDate())
+                .returnDate(loan.getReturnDate())
+                .score(loan.getScore())
+                .build();
     }
 
     public static UserDTO userToUserDTO(User user) {
