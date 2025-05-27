@@ -72,7 +72,7 @@ public class UserApi {
         }
     }
 
-    @POST
+    @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(User user) {
