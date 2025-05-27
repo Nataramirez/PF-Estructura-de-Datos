@@ -7,6 +7,7 @@ import { TypeUser } from '../../../enums/type-user.enum';
 import { Router } from '@angular/router';
 import { routesCollection } from '../../../app.routes';
 import { LibraryServicesService } from '../../../services/library-services.service';
+import { BinaryTreeService } from '../../../services/binary-tree/binary-tree.service';
 
 @Component({
   selector: 'app-search-books',
@@ -22,7 +23,7 @@ export class SearchBooksComponent {
   constructor(
     private globalState: GlobalStateService,
     private router: Router,
-    private libraryServicesService: LibraryServicesService
+    private libraryServicesService: LibraryServicesService,
   ) {
   }
 
@@ -57,7 +58,7 @@ export class SearchBooksComponent {
         if (user.role === TypeUser.USER) {
           this.router.navigate([routesCollection.MAIN_USER], { replaceUrl: true });
         } else if (user.role === TypeUser.ADMIN) {
-          this.router.navigate([routesCollection.MAIN_ADMIN], { replaceUrl: true });
+          this.router.navigate([routesCollection.MAIN_ADMIN]);
         }
       }
     });

@@ -24,6 +24,8 @@
             <p class="loan">{{ mapCategory(book.category) }}</p>
             <p class="loan">{{ book.state === stateBookEnum.AVAILABLE ? 'Disponible' : 'Prestado' }}</p>
             <div class="loan action">
+                <button class="button-primary action-button"
+                    type="button" (click)="updateBook(book)">Actualizar</button>
                 <button [disabled]="book.state !== stateBookEnum.AVAILABLE" class="button-primary action-button"
                     type="button" (click)="deleteBook(book.id)">Eliminar</button>
             </div>
@@ -31,7 +33,7 @@
     </div>
 </div>
 
-<app-modal #modalRecordBook title="Crear libro">
+<app-modal #modalRecordBook title="{{titleModalRecord}}">
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="container-form">
 
@@ -80,7 +82,7 @@
                 </div>
             </div>
 
-            <button [disabled]="loginForm.invalid" class="button-primary button-login" type="submit">Crear</button>
+            <button [disabled]="loginForm.invalid" class="button-primary button-login" type="submit">{{buttonModalRecord}}</button>
         </div>
 
     </form>

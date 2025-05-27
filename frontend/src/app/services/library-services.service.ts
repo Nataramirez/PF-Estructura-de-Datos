@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HelloResponse } from '../records/hello.model';
-import { AddBookRequest, AddUserRequest, AuthUserRequest, CancelLoanRequest, LoanBookRequest, RateBookRequest, ReturnBookRequest } from './request.model';
+import { AddBookRequest, AddUserRequest, AuthUserRequest, CancelLoanRequest, LoanBookRequest, RateBookRequest, ReturnBookRequest, UpdateUserRequest } from './request.model';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Loan } from '../models/loan.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,13 +49,25 @@ export class LibraryServicesService {
     return await lastValueFrom(this.http.post<any>(`${this.portUrl}user/auth`, authUser));
   }
 
+  public async getAllUsers(): Promise<any> {
+    return await lastValueFrom(this.http.get<any>(`${this.portUrl}user/get-all`));
+  }
+
+  public async updateUser(updateUserRequest: UpdateUserRequest): Promise<User[]>{
+    return await lastValueFrom(this.http.put<User[]>(`${this.portUrl}user/update`, updateUserRequest))
+  }
+
+  public async deleteUser(user: string): Promise<any>{
+    return await lastValueFrom(this.http.delete<any>(`${this.portUrl}user/delete/${user}`))
+  }
+
   public async loanBook(loanBookRequest: LoanBookRequest): Promise<any> {
     const { idBook, userForApply } = loanBookRequest;
     return await lastValueFrom(
       this.http.post<any>(
-      `${this.portUrl}loan/apply`,
-      {},
-      { params: { idBook, userForApply } }
+        `${this.portUrl}loan/apply`,
+        {},
+        { params: { idBook, userForApply } }
       )
     );
   }
@@ -84,5 +97,9 @@ export class LibraryServicesService {
         { params: { userString, idLoan } }
       )
     );
+  }
+
+  public async getLoanByUser(user: string): Promise<Loan[]>{
+    return await lastValueFrom(this.http.get<Loan[]>(`${this.portUrl}loan/get-loans-user?`, { params: { userString: user }}))
   }
 }

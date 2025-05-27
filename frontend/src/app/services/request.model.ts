@@ -38,3 +38,9 @@ export interface CancelLoanRequest {
     userString: string,
     idLoan: string
 }
+
+export interface UpdateUserRequest {
+    user: string,
+    password: string,
+    name: string,
+}
