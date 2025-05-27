@@ -90,6 +90,10 @@ public class SimpleLinkedList<T> implements Iterable<T> {
         return new SimpleLinkedListIterator<>(firstNode);
     }
 
+    public Integer size() {
+        return size;
+    }
+
     private static class SimpleLinkedListIterator<T> implements Iterator<T> {
 
         private Node<T> current;
