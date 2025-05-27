@@ -5,6 +5,7 @@ import { CategoryBook } from './enums/category-book.enum';
 import { StateBook } from './enums/state-book.enum';
 import { LibraryServicesService } from './services/library-services.service';
 import { take } from 'rxjs';
+import { TypeUser } from './enums/type-user.enum';
 
 @Component({
   selector: 'app-root',
@@ -200,13 +201,48 @@ export class AppComponent {
     let allBooks = await this.libraryService.getAllBooks();
     if (allBooks.length < 1) {
         for (const book of this.getBooks) {
-          this.libraryService.addBook({
+          await this.libraryService.addBook({
             "name": book.name,
             "author": book.author,
             "year": Number(book.year),
             "category": book.category,
           });
         }
+
+        await this.libraryService.addUser({
+          user: '123456',
+          password: '123456',
+          name: 'ADMIN',
+          role: TypeUser.ADMIN
+        });
+
+        await this.libraryService.addUser({
+          user: '1094',
+          password: '1094',
+          name: 'Natalia',
+          role: TypeUser.USER
+        });
+
+        await this.libraryService.addUser({
+          user: '1095',
+          password: '1095',
+          name: 'Sara',
+          role: TypeUser.USER
+        });
+
+        await this.libraryService.addUser({
+          user: '1096',
+          password: '1096',
+          name: 'Valentina',
+          role: TypeUser.USER
+        });
+
+        await this.libraryService.addUser({
+          user: '123456',
+          password: '123456',
+          name: 'ADMIN',
+          role: TypeUser.ADMIN
+        });
       }
     allBooks = await this.libraryService.getAllBooks();
     this.globalState.setBooks(allBooks);

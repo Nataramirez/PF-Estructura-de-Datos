@@ -7,6 +7,8 @@ import { LoginComponent } from "../login/login.component";
 import { StateBook } from '../../enums/state-book.enum';
 import { User } from '../../models/user.model';
 import { CategoryBook } from '../../enums/category-book.enum';
+import { LoanBookRequest } from '../../services/request.model';
+import { LibraryServicesService } from '../../services/library-services.service';
 
 @Component({
   selector: 'app-books',
@@ -24,9 +26,11 @@ export class BooksComponent {
   public descriptionLoan: string = '';
   public nameBookLoan: string = '';
   public stateBookLoan: StateBook = StateBook.AVAILABLE;
+  public stateBook: string = '';;
 
   constructor(
-    private globalState: GlobalStateService
+    private globalState: GlobalStateService,
+    private libraryServicesService: LibraryServicesService
   ) {
     this.globalState.isUserLoggedIn$.subscribe(state => {
       console.log('Usuario logueado:', state);
@@ -64,8 +68,10 @@ export class BooksComponent {
   public getClassByState(state: StateBook): string {
     switch (state) {
       case StateBook.AVAILABLE:
+        this.stateBook = 'Disponible';
         return 'state-available';
       case StateBook.LOANED:
+        this.stateBook = 'Prestado';
         return 'state-loaned';
       default:
         return '';
@@ -93,10 +99,17 @@ export class BooksComponent {
       }
     }
 
-  public confirmLoan() {
-    if (this.bookLoan) {
+  public async confirmLoan() {
+    if (this.bookLoan && this.userLoggedIn) {
       console.log('Confirmando préstamo del libro:', this.bookLoan, this.userLoggedIn);
-      // Aquí se llamaría al servicio para confirmar el préstamo del libro debe responder el historico de prestamos del usuario
+      const loanBookRequest: LoanBookRequest = {
+        idBook: this.bookLoan.id,
+        userForApply: this.userLoggedIn.user,
+      }
+      const responseLoanApply = await this.libraryServicesService.loanBook(loanBookRequest);
+      console.log('Respuesta del préstamo:', responseLoanApply);
+      this.globalState.setUserLoggedIn(responseLoanApply.user);
+      this.modalLoan.close();
     }
   }
 

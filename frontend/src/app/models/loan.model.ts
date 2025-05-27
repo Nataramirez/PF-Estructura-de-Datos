@@ -1,11 +1,18 @@
 import { Book } from "./book.model";
+import { User } from "./user.model";
 
 export interface Loan {
     id: string;
     book: Book;
-    dateLoan: String;
-    dateReturn: String | null;
-    // ESTADO DE DEVUELTO O EN USO
-    // BOOLEAN DE CALIFICADO, SI TRUE NO PUEDE CALIFICAR DE NUEVO 
-    // SCORE, PUNTAJE DE CALIFICACION 
+    loanDate: String;
+    returnDate: String | null;
+    user: User;
+    state: LoanStates;
+    score: number;
+}
+
+export enum LoanStates {
+    WAITING = "WAITING",
+    RETURNED = "RETURNED",
+    LOANED = "LOANED"
 }

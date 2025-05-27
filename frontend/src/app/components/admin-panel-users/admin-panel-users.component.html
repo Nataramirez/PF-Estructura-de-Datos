@@ -11,7 +11,7 @@
         </div>
 
         <div class="container-loans" *ngFor="let user of users">
-            <span class="loan">{{ user.identification }}</span>
+            <span class="loan">{{ user.user }}</span>
             <span class="loan">{{ user.name }}</span>
             <div class="loan action">
                 <button [disabled]="user.loans.length === 0" class="button-primary action-button"

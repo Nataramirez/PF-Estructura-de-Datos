@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HelloResponse } from '../records/hello.model';
-import { AddBookRequest, AddUserRequest } from './request.model';
+import { AddBookRequest, AddUserRequest, AuthUserRequest, CancelLoanRequest, LoanBookRequest, RateBookRequest, ReturnBookRequest } from './request.model';
 import { lastValueFrom, Observable } from 'rxjs';
+import { Loan } from '../models/loan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,47 @@ export class LibraryServicesService {
 
   public async addUser(user: AddUserRequest): Promise<any> {
     return await lastValueFrom(this.http.post<any>(`${this.portUrl}user/create`, user));
+  }
+
+  public async authUser(authUser: AuthUserRequest): Promise<any> {
+    return await lastValueFrom(this.http.post<any>(`${this.portUrl}user/auth`, authUser));
+  }
+
+  public async loanBook(loanBookRequest: LoanBookRequest): Promise<any> {
+    const { idBook, userForApply } = loanBookRequest;
+    return await lastValueFrom(
+      this.http.post<any>(
+      `${this.portUrl}loan/apply`,
+      {},
+      { params: { idBook, userForApply } }
+      )
+    );
+  }
+
+  public async returnBook(returnBookRequest: ReturnBookRequest): Promise<Loan[]> {
+    const { userString, idLoan } = returnBookRequest;
+    return await lastValueFrom(
+      this.http.post<Loan[]>(
+        `${this.portUrl}loan/return`,
+        {},
+        { params: { userString, idLoan } }
+      )
+    );
+  }
+
+  public async rateBook(rateBookRequest: RateBookRequest): Promise<any> {
+    const { qualification, idLoan } = rateBookRequest;
+    return await lastValueFrom(this.http.post<any>(`${this.portUrl}loan/qualify-loan/${idLoan}`, {}, { params: { qualification } }));
+  }
+
+  public async cancelLoan(cancelLoanRequest: CancelLoanRequest): Promise<Loan[]> {
+    const { userString, idLoan } = cancelLoanRequest;
+    return await lastValueFrom(
+      this.http.post<Loan[]>(
+        `${this.portUrl}loan/cancel?`,
+        {},
+        { params: { userString, idLoan } }
+      )
+    );
   }
 }

@@ -34,7 +34,6 @@ export class BooksAdminPanelComponent {
   }
 
   public async onSubmit() {
-    console.log('ACA VAMOS A CREAR EL LIBRO');
     this.modalRecordBook.close();
     const requestCreateBook = {
       name: this.title,
@@ -42,21 +41,19 @@ export class BooksAdminPanelComponent {
       category: this.category,
       year: this.year ? this.year : 0,
     }
-    console.log('requestCreateBook', requestCreateBook);
     const response = await this.libraryServicesService.addBook(requestCreateBook);
-    console.log('response', response);
-    // notificar al usuario que se ha creado el libro
-    // debe retornar la nueva lista de libros o llamar al servicio de obtener libros
-    // debo actualizar el estado global de los libros
+    this.globalState.setBooks(response);
+    alert('Libro creado correctamente');
+    this.title = '';
+    this.author = '';
+    this.year = undefined;
+    this.category = '';
   }
 
   public async deleteBook(bookId: string) {
-    console.log('Deleting book with ID:', bookId);
     const responseDeleteBook = await this.libraryServicesService.deleteBook(bookId);
-    console.log('responseDeleteBook', responseDeleteBook);
-    // notificar al usuario que se ha eliminado el libro
-    // debe retornar la nueva lista de libros o llamar al servicio de obtener libros
-    // debo actualizar el estado global de los libros
+    this.globalState.setBooks(responseDeleteBook);
+    alert('Libro eliminado correctamente');
   }
 
   mapCategory(category: CategoryBook) {
