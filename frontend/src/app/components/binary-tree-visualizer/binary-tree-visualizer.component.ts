@@ -3,7 +3,6 @@ import { BinaryTreeService } from '../../services/binary-tree/binary-tree.servic
 import { NodeBinaryTree } from '../../services/binary-tree/Node';
 import { Book } from '../../models/book.model';
 import * as d3 from 'd3';
-import { GlobalStateService } from '../../services/global-state.service';
 import { LibraryServicesService } from '../../services/library-services.service';
 
 @Component({
@@ -19,7 +18,6 @@ export class BinaryTreeVisualizerComponent {
 
   constructor(
     private binaryTreeService: BinaryTreeService,
-    private globalState: GlobalStateService,
     private libraryServicesService: LibraryServicesService,
   ) { }
 
