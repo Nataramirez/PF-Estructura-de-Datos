@@ -64,5 +64,14 @@ public class BookService {
         return books;
     }
 
+    public BinaryTree<Book> updateBook(Book bookUpdate) {
+        Book book = Data.books.search(bookUpdate);
+        book.setCategory(bookUpdate.getCategory());
+        book.setName(bookUpdate.getName());
+        book.setAuthor(bookUpdate.getAuthor());
+        book.setYear(bookUpdate.getYear());
+        return Data.books;
+    }
+
     public BinaryTree<Book> getBooks() { return Data.books; }
 }
