@@ -41,7 +41,8 @@ public class UserService {
 
     public BinaryTree<User> deleteUser(String userId) throws Exception {
 
-        User user = Data.users.search(User.builder().id(userId).build());
+        User user = Data.users.search(User.builder().user(userId).build());
+        System.out.println(user);
 
         if (user != null) {
             boolean safeDelete = true;
