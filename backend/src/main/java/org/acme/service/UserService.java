@@ -9,6 +9,7 @@ import org.acme.utils.Data;
 import org.acme.utils.list.SimpleLinkedList;
 import org.acme.utils.tree.BinaryTree;
 
+import java.util.Iterator;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -41,7 +42,8 @@ public class UserService {
 
     public BinaryTree<User> deleteUser(String userId) throws Exception {
 
-        User user = Data.users.search(User.builder().id(userId).build());
+        User user = Data.users.search(User.builder().user(userId).build());
+        System.out.println(user);
 
         if (user != null) {
             boolean safeDelete = true;
@@ -63,4 +65,12 @@ public class UserService {
             throw new Exception("El usuario enviado para eliminacion no ha sido encontrado.");
         }
     }
+
+    public BinaryTree<User> updateUser(User userUpdate) throws Exception {
+        User user = Data.users.search(userUpdate);
+        user.setName(userUpdate.getName());
+        user.setPassword(userUpdate.getPassword());
+        return Data.users;
+    }
+
 }

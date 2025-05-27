@@ -71,4 +71,16 @@ public class UserApi {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUser(User user) {
+        try {
+            BinaryTree<User> users = userService.updateUser(user);
+            return Response.status(Response.Status.OK).entity(MapToList.binaryTreeUserToList(users)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
 }
