@@ -35,6 +35,10 @@ public class UserService {
         return null;
     }
 
+    public  BinaryTree<User> getUsers() {
+        return Data.users;
+    }
+
     public BinaryTree<User> deleteUser(String userId) throws Exception {
 
         User user = Data.users.search(User.builder().id(userId).build());
