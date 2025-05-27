@@ -99,4 +99,17 @@ public class BookApi {
                     "procesar la solicitud. Por favor intente más tade.").build();
         }
     }
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateBook(Book book) {
+        try {
+            List<BookDTO> books = MapToList.binaryTreeBookToList(bookService.updateBook(book));
+            return Response.status(Response.Status.OK).entity(books).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un error al intentar " +
+                    "procesar la solicitud. Por favor intente más tade.").build();
+        }
+    }
 }
