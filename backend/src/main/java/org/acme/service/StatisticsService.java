@@ -1,5 +1,6 @@
 package org.acme.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.acme.model.book.Book;
 import org.acme.model.user.User;
@@ -9,6 +10,7 @@ import org.acme.utils.mappers.MapToList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
 public class StatisticsService {
 
     @Inject
