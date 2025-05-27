@@ -13,22 +13,27 @@ import { User } from '../../models/user.model';
   styleUrl: './admin-panel-users.component.css'
 })
 export class AdminPanelUsersComponent {
-deleteUser(arg0: String) {
-throw new Error('Method not implemented.');
-}
+
   @ViewChild('modalRecordUser') modalRecordUser!: ModalComponent;
   public users: User[] = []
 
   constructor(
     private globalState: GlobalStateService,
     private libraryServicesService: LibraryServicesService,
-  ) { 
+  ) {
     this.globalState.users$.subscribe((users) => {
       this.users = users;
+      console.log('Users updated:', this.users);
+
     });
   }
 
   openModalLogin() {
     this.modalRecordUser.open();
+  }
+
+  public async deleteUser(user: string) {
+    const responseDeleteUser = await this.libraryServicesService.deleteUser(user)
+    this.globalState.setUsers(responseDeleteUser)
   }
 }

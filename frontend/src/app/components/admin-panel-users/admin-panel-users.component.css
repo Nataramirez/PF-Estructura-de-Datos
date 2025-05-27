@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 100%;
     background-color: var(--color-secondary-light);
-    height: 100%;
+    min-height: 1200px;
 }
 
 .container-loans {

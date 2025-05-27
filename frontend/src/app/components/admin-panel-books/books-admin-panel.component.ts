@@ -15,6 +15,7 @@ import { LibraryServicesService } from '../../services/library-services.service'
   styleUrl: './books-admin-panel.component.css'
 })
 export class BooksAdminPanelComponent {
+
   @ViewChild('modalRecordBook') modalRecordBook!: ModalComponent;
   public categories = CategoryBook;
   public books: Book[] = []
@@ -23,6 +24,9 @@ export class BooksAdminPanelComponent {
   public year: number | undefined;
   public category = '';
   public stateBookEnum = StateBook;
+  public titleModalRecord = 'Crear libro';
+  public buttonModalRecord = 'Crear';
+  public update = false;
 
   constructor(
     private globalState: GlobalStateService,
@@ -75,5 +79,15 @@ export class BooksAdminPanelComponent {
       default:
         return 'Desconocido';
     }
+  }
+
+  updateBook(book: Book) {
+    this.titleModalRecord = 'Actualizar Libro';
+    this.buttonModalRecord = 'Actualizar';
+    this.title = book.name;
+    this.author = book.author;
+    this.category = book.category;
+    this.year = Number(book.year);
+    this.modalRecordBook.open();
   }
 }

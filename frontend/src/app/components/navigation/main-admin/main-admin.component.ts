@@ -7,6 +7,7 @@ import { Book } from '../../../models/book.model';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../modal/modal.component';
 import { LibraryServicesService } from '../../../services/library-services.service';
+import { BinaryTreeService } from '../../../services/binary-tree/binary-tree.service';
 
 @Component({
   selector: 'app-main-admin',
@@ -20,11 +21,17 @@ export class MainAdminComponent {
   constructor(
     private globalState: GlobalStateService,
     private router: Router,
-    private libraryService: LibraryServicesService // Aquí se debería inyectar el servicio de biblioteca
+    private libraryService: LibraryServicesService,
+    private binaryTreeService: BinaryTreeService,
   ) {
     this.globalState.books$.subscribe((books) => {
       this.books = books;
     });
+  }
+
+  async ngOnInit() {
+    const users = await this.libraryService.getAllUsers();
+    this.globalState.setUsers(users);
   }
 
   public async closeSession() {
@@ -50,5 +57,4 @@ export class MainAdminComponent {
         break;
     }
   }
-
 }
