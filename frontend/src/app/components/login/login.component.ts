@@ -8,6 +8,7 @@ import { TypeUser } from '../../enums/type-user.enum';
 import { User } from '../../models/user.model';
 import { CategoryBook } from '../../enums/category-book.enum';
 import { StateBook } from '../../enums/state-book.enum';
+import { LibraryServicesService } from '../../services/library-services.service';
 
 @Component({
   selector: 'app-login',
@@ -22,110 +23,37 @@ export class LoginComponent {
 
   constructor(
     private globalState: GlobalStateService,
-    private router: Router
+    private router: Router,
+    private libraryService: LibraryServicesService
   ) {
     this.username = '';
     this.password = '';
   }
 
-  public onSubmit() {
+  public async onSubmit() {
     console.log('Username:', this.username);
     console.log('Password:', this.password);
-    try {
-      const responseSearchUser: User = { // acá debo consumir el servicio del back que retorne el usuario encontrado
-        id: '1',
-        name: 'natalia',
-        password: '123456',
-        identification: '123456789',
-        type: TypeUser.ADMIN,
-        loans: [{
-          id: '1',
-          book: {
-            "name": "Algorithms to Live By",
-            "author": "Brian Christian",
-            "year": "2016",
-            "qualification": 2,
-            "category": CategoryBook.SCIENCE_FICTION,
-            "state": StateBook.AVAILABLE,
-            "id": "18"
-          },
-          dateLoan: '2023-10-01',
-          dateReturn: '2023-10-15'
-        },
-        {
-          id: '2',
-          book: {
-            "name": "Why Nations Fail",
-            "author": "Daron Acemoglu",
-            "year": "2012",
-            "qualification": 1,
-            "category": CategoryBook.HISTORY,
-            "state": StateBook.AVAILABLE,
-            "id": "2"
-          },
-          dateLoan: '2023-10-01',
-          dateReturn: null
-        },
-        {
-          id: '3',
-          book: {
-            "name": "The Knowledge",
-            "author": "Lewis Dartnell",
-            "year": "2014",
-            "qualification": 2,
-            "category": CategoryBook.SCIENCE_FICTION,
-            "state": StateBook.LOANED,
-            "id": "4"
-          },
-          dateLoan: '2023-10-01',
-          dateReturn: null
-        }],
-        scores: [
-          {
-            id: '1',
-            book: {
-              "name": "Algorithms to Live By",
-              "author": "Brian Christian",
-              "year": "2016",
-              "qualification": 2,
-              "category": CategoryBook.SCIENCE_FICTION,
-              "state": StateBook.AVAILABLE,
-              "id": "18"
-            },
-            value: 5
-          },
-          {
-            id: '2',
-            book: {
-              "name": "Why Nations Fail",
-              "author": "Daron Acemoglu",
-              "year": "2012",
-              "qualification": 1,
-              "category": CategoryBook.HISTORY,
-              "state": StateBook.AVAILABLE,
-              "id": "2"
-            },
-            value: 4  
-          }
-        ]
-      };
-      this.globalState.setUserLoggedIn(responseSearchUser);
-      this.globalState.setLoanBooks(responseSearchUser.loans);
 
-      if (responseSearchUser.type === TypeUser.USER) {
-        this.router.navigate([routesCollection.MAIN_USER]);
-      } else if (responseSearchUser.type === TypeUser.ADMIN) {
-        this.router.navigate([routesCollection.MAIN_ADMIN]);
-      } else {
-        alert('Usuario no fue encontrado. Intenta nuevamente');
-        this.globalState.setUserLoggedIn(null);
-      }
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      alert('Error al iniciar sesión. Intenta nuevamente');
+    const user = await this.libraryService.authUser({
+      user: this.username,
+      password: this.password
+    });
+    
+    if (!user) {
+      alert('Usuario o contraseña incorrectos. Intenta nuevamente');
+      return;
     }
 
+    this.globalState.setUserLoggedIn(user);
+    this.globalState.setLoanBooks(user.loans);
 
+    if (user.role === TypeUser.USER) {
+      this.router.navigate([routesCollection.MAIN_USER]);
+    } 
+    
+    if (user.role === TypeUser.ADMIN) {
+      this.router.navigate([routesCollection.MAIN_ADMIN]);
+    }
   }
 
 }

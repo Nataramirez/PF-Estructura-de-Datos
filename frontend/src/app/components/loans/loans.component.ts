@@ -7,6 +7,9 @@ import { StateBook } from '../../enums/state-book.enum';
 import { CategoryBook } from '../../enums/category-book.enum';
 import { ModalComponent } from '../modal/modal.component';
 import { Book } from '../../models/book.model';
+import { LibraryServicesService } from '../../services/library-services.service';
+import { RateBookRequest, ReturnBookRequest } from '../../services/request.model';
+import { LoanStates } from '../../models/loan.model';
 
 @Component({
   selector: 'app-loans',
@@ -17,19 +20,25 @@ import { Book } from '../../models/book.model';
 export class LoansComponent {
   @ViewChild('modalRate') modalRate!: ModalComponent;
   @ViewChild('modalDeleteLoan') modalDeleteLoan!: ModalComponent;
+  public loanRate: Loan | null = null;
   public loans: Loan[] = [];
   public user: User | null = null;
   public bookRate: Book | null = null;
   public loanDelete: Loan | null = null;
   public stateBookEnum = StateBook;
+  public loanStates = LoanStates;
+  loanBtn: HTMLButtonElement | null = null;
 
   constructor(
-    private globalState: GlobalStateService
+    private globalState: GlobalStateService,
+    private libraryServicesService: LibraryServicesService
   ) { }
 
   ngOnInit() {
     this.globalState.loanBooks$.subscribe(loans => {
       this.loans = loans;
+      console.log('Lista de prestamos actualizada:', this.loans);
+
     });
 
     this.globalState.isUserLoggedIn$.subscribe(user => {
@@ -37,124 +46,54 @@ export class LoansComponent {
     });
   }
 
-  public rateBook(book: Book) {
-    // acá se debe consumir el servicio del back para calificar el libro
-    this.bookRate = book;
-    this.modalRate.open();
-  }
-
-  public returnBook() {
-    // acá se debe consumir el servicio del back para devolver el libro
-    // se debe recibir actualizada la lista de prestamos del usuario
-    try {
-      const loans = [{
-        id: '1',
-        book: {
-          "name": "Algorithms to Live By",
-          "author": "Brian Christian",
-          "year": "2016",
-          "qualification": 2,
-          "category": CategoryBook.SCIENCE_FICTION,
-          "state": StateBook.AVAILABLE,
-          "id": "18"
-        },
-        dateLoan: '2023-10-01',
-        dateReturn: '2023-10-15'
-      },
-      {
-        id: '2',
-        book: {
-          "name": "Why Nations Fail",
-          "author": "Daron Acemoglu",
-          "year": "2012",
-          "qualification": 1,
-          "category": CategoryBook.HISTORY,
-          "state": StateBook.AVAILABLE,
-          "id": "2"
-        },
-        dateLoan: '2023-10-01',
-        dateReturn: '2023-10-15'
-      },
-      {
-        id: '3',
-        book: {
-          "name": "The Knowledge",
-          "author": "Lewis Dartnell",
-          "year": "2014",
-          "qualification": 2,
-          "category": CategoryBook.SCIENCE_FICTION,
-          "state": StateBook.LOANED,
-          "id": "4"
-        },
-        dateLoan: '2023-10-01',
-        dateReturn: null
-      }]
-      this.globalState.setLoanBooks(loans);
-      alert('El libro ha sido devuelto correctamente');
-    } catch (error) {
-      console.error('Error al devolver el libro:', error);
-      alert('Error al devolver el libro');
+  public rateBook(loan: Loan | undefined) {
+    if (loan) {
+      this.bookRate = loan.book;
+      this.loanRate = loan;
+      this.modalRate.open();
     }
   }
 
-  sendRating(rate: number) {
-    console.log('Rating received:', rate);
-    console.log('Book to rate:', this.bookRate);
-    try {
-      // Acá se debe consumir el servicio del back para calificar el libro
+  public async returnBook(loan: Loan) {
+    if (this.user) {
+      const requestReturn: ReturnBookRequest = {
+        userString: this.user.user,
+        idLoan: loan.id
+      }
+      const responseReturn: Loan[] = await this.libraryServicesService.returnBook(requestReturn)
+      this.globalState.setLoanBooks(responseReturn);
+      alert('El libro ha sido devuelto correctamente');
+    }
+  }
+
+  public async sendRating(rate: number) {
+    if (this.bookRate && this.loanRate) {
+      const requestRate: RateBookRequest = {
+        qualification: rate,
+        idLoan: this.loanRate.id
+      }
+      const responseRate = await this.libraryServicesService.rateBook(requestRate)
       alert('El libro ha sido calificado correctamente');
+      this.globalState.setBooks(responseRate);
       this.modalRate.close();
-    } catch (error) {
-      console.error('Error al calificar el libro:', error);
-      alert('Error al calificar el libro');
     }
   }
 
   deleteLoan(loan: Loan) {
-    console.log('Loan to delete:', loan);
     this.loanDelete = loan;
     this.modalDeleteLoan.open();
   }
 
-  confirmDeleteLoan() {
-    try {
-      // Acá se debe consumir el servicio del back para eliminar el prestamo
-      // debe retornar la lista de prestamos actualizada del usuario
-      const loans = [{
-        id: '1',
-        book: {
-          "name": "Algorithms to Live By",
-          "author": "Brian Christian",
-          "year": "2016",
-          "qualification": 2,
-          "category": CategoryBook.SCIENCE_FICTION,
-          "state": StateBook.AVAILABLE,
-          "id": "18"
-        },
-        dateLoan: '2023-10-01',
-        dateReturn: '2023-10-15'
-      },
-      {
-        id: '2',
-        book: {
-          "name": "Why Nations Fail",
-          "author": "Daron Acemoglu",
-          "year": "2012",
-          "qualification": 1,
-          "category": CategoryBook.HISTORY,
-          "state": StateBook.AVAILABLE,
-          "id": "2"
-        },
-        dateLoan: '2023-10-01',
-        dateReturn: '2023-10-15'
+  public async confirmDeleteLoan() {
+    if (this.user && this.loanDelete) {
+      const requestCancelLoan = {
+        userString: this.user.user,
+        idLoan: this.loanDelete.id
       }
-    ]
-      this.globalState.setLoanBooks(loans);
+      const responseCancelLoan: Loan[] = await this.libraryServicesService.cancelLoan(requestCancelLoan);
+      this.globalState.setLoanBooks(responseCancelLoan); 
       alert('El prestamo ha sido eliminado correctamente');
       this.modalDeleteLoan.close();
-    } catch (error) {
-      console.error('Error al eliminar el prestamo:', error);
-      alert('Error al eliminar el prestamo');
     }
   }
 }

@@ -6,8 +6,9 @@ export interface User {
     id: String;
     name: string;
     password: string;
-    identification: string;
-    type: TypeUser;
+    user: string;
+    state: string
+    role: TypeUser;
     loans: Loan[];
     scores: Score[];
 }
