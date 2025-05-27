@@ -1,5 +1,7 @@
 package org.acme.utils.tree;
 
+import org.acme.utils.list.SimpleLinkedList;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
@@ -94,6 +96,20 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         }
 
         return current;
+    }
+
+    public SimpleLinkedList<T> toList() {
+        SimpleLinkedList<T> result = new SimpleLinkedList<>();
+        inOrderTraversal(root, result);
+        System.out.println("List: " + result);
+        return result;
+    }
+
+    private void inOrderTraversal(Node<T> node, SimpleLinkedList<T> list) {
+        if (node == null) return;
+        inOrderTraversal(node.getLeft(), list);
+        list.insertAtEnd(node.getValue());
+        inOrderTraversal(node.getRight(), list);
     }
 
     @Override
